@@ -1,75 +1,32 @@
-# Session Handoff — vibe-kit
+# Session Handoff — vibe-kit (Adaptación Antigravity v2)
 
-> **Save game** del proyecto madre. `/cierre` lo sobreescribe entero; el hook SessionStart lo
-> inyecta en cada chat nuevo de esta carpeta.
+> **Save game** del proyecto madre. `/cierre` lo sobreescribe entero; la regla `inicio-sesion` (o `/inicio`) lo lee al abrir cada chat nuevo en esta carpeta.
 
-**Última sesión cerrada:** 2026-10-21, en la **notebook** (una tercera PC: ni `clientes` ni `Usuario`).
-Fue la misión 4, tramo 4: **racimos A y C diseñados**. Solo diseño, sin cambios al kit (sigue en `v2.4.2`).
-Todo quedó pusheado (la cuenta de GitHub de la notebook recibió permiso de escritura el 21/10).
+**Última sesión cerrada:** 2026-10-21 (Diseño con `/arquitecto` Modo B + auditoría `redteam-spec`).
+Se diseñó, auditó y aprobó el plano completo para adaptar esta versión evolucionada de `vibe-kit` (Misiones 3 y 4 de Guido) al flujo de Juan en **Antigravity (Gemini)**. No se tocó `kit/` todavía (solo diseño).
 
 ## Dónde estamos
 
-- **Misión 4**: los tramos 0 a 3 están hechos ([`PLAN.md`](mision-4/PLAN.md)). **El tramo 4 va por
-  racimos**, en este orden: A → C → E → F → B → D → G → H.
-  - ✅ **A · Frenos** ([`DISENO-A-frenos.md`](mision-4/DISENO-A-frenos.md)). Un agente le pregunta a
-    Guido **solo 4 cosas**: borrar datos reales, tocar plata, manejar claves y mandar algo hacia afuera a
-    su nombre. Lo demás son correctores que no lo molestan.
-  - ✅ **C · Salida hacia Guido** ([`DISENO-C-...`](mision-4/DISENO-C-salida-hacia-Guido.md)).
-    - Silencio por defecto.
-    - `/estado <proyecto>` y `/estado <subproyecto>`, que sin nombre sale del contexto.
-    - Una tabla de tiempos con tokens. **Estima el director, no un script.**
-- 🧭 **El norte de todo el diseño** (PLAN, §El foco): un workflow ágil en el que Guido casi no
-  interviene. Decide el diseño y el negocio; los agentes ejecutan. Ningún freno de adorno.
-  **Presentarle cada decisión en criollo y corta, diciendo qué cambia para él.** Un primer intento con
-  siglas y opciones técnicas no se entendió.
-- 🆕 Se sumó al mapa:
-  - **subproyectos dentro de un proyecto**, cada uno con sus documentos, reporte, estimación y consumo
-    (racimo H);
-  - **la mensajería multiagente**, el buzón (racimo G);
-  - [`REFERENCIAS-EXTERNAS.md`](mision-4/REFERENCIAS-EXTERNAS.md): gentle-ai, agency-agents y MetaGPT,
-    con 8 ideas nuevas, cada una con su racimo.
+- ✅ **Spec listo para construir**: [`docs/SPEC-adaptacion-antigravity.md`](SPEC-adaptacion-antigravity.md) está en **`Estado: READY`** tras pasar por entrevista de decisiones y una ronda de `redteam-spec` (5 hallazgos corregidos e integrados al plano).
+- 🧭 **Qué define el spec**:
+  - **Base Misión 3 completa** adaptada a `AGENTS.md` y `.agents/` + atribución explícita a Guido (`guidocameraeq/vibe-kit`) bajo licencia 100% MIT (reemplazando `docs-fyd` por `docs-personales` desde `C:\Users\Usuario\Desktop\vibe-kit-main`).
+  - **Mejoras cerradas de Misión 4 activas en el kit**:
+    - **Diseño A (Frenos y Correctores)**: las 4 únicas preguntas al humano + corrector contra git destructivo en `AGENTS.template.md` + encargos por referencia (`SPEC` + `archivo:línea`).
+    - **Diseño C (`/estado`)**: nueva skill `/estado` y script recolector `.agents/scripts/estado-git.ps1` (`.sh`) con contrato JSON fijo (`rama`, `ultimo_commit`, `commits_recientes`, `pendientes_de_push`, `arbol_limpio`, `archivos_modificados`).
+    - **Orquestación multiagente nativa de Antigravity**: `invoke_subagent` con `Workspace: "branch" | "share"`, `send_message` y Reactive Wakeup en `consultorio.md`.
+  - **Sincronización y Equipador**: scripts `.agents/scripts/kit-sync.ps1` y `.sh` hacia `~/.gemini/config/skills/` (preservando `E:/Proyectos/AI Projects` instalado y dejando `{{CARPETA_DE_PROYECTOS}}` en `kit/`), nuevo **Modo DOCTOR** en `/arquitecto-skills`, y `android-cli` en `menu-skills.md`.
+- 🔗 **Remotos de git**: el remoto original de Guido quedó renombrado como `upstream` (`https://github.com/guidocameraeq/vibe-kit.git`) para evitar pushes accidentales al repo de Guido. Queda listo para que Juan agregue su propio `origin` en GitHub cuando quiera publicar su fork adaptado.
 
-## Próximo paso: racimo E (el molde y la flota)
+## Próximo paso: construir `docs/SPEC-adaptacion-antigravity.md`
 
-**Título de la sesión: `vibe-kit M4 · Tramo 4: racimo E`** (`/inicio` se lo pone al confirmar).
-**Esfuerzo `xhigh`, o Fable**: trae la decisión grande.
+**Título de la sesión: `vibe-kit · Construir adaptación Antigravity v2`**
 
-- **Lee**:
-  - el norte del `PLAN.md`;
-  - `TABLERO.md` §5, §10 (la fila E) y §12;
-  - de `FLOTA.md`, §1, §6, §7 y §9;
-  - de `REFERENCIAS-EXTERNAS.md`, las filas E.
-- **La decisión grande: el Arquitecto como agente único**, que prepara la PC, arranca proyectos y mantiene
-  la flota. **Choca con ADR-004 y REJ-003.** El camino propuesto: una sola puerta, varios módulos.
-- **Lo demás del racimo**:
-  - las skills canónicas más una ficha por proyecto (P31);
-  - la versión visible en cada proyecto (0 de 10 la marcan);
-  - `/smoke` y `/release` al molde;
-  - `AGENTS.md` y "una fuente → cada herramienta", para el multi-LLM;
-  - `doctor` y `--dry-run` en el Equipador.
-- **Cómo**: una ficha de una pantalla, después decisiones de a una (en criollo), después
-  `DISENO-E-*.md`, y al final se marca en el PLAN.
-
-## Cosas que muerden y no están en ningún otro doc
-
-- 📬 **El buzón multiagente**:
-  - lo diseña otra sesión, el proyecto `buzon-agentes` de esta PC, con un SPEC-0 en borrador;
-  - el v0 corre como piloto en una carpeta compartida de la organización;
-  - vibe-kit está registrado ahí como director y ya contestó;
-  - **se diseña recién en el racimo G**;
-  - **ninguna ruta, ningún nombre de PC ni ningún contenido del buzón entra a este repo** (ADR-021);
-  - la primera prueba fue en la misma PC y con la misma cuenta, así que **el cruce real no se probó**.
-- 🧠 La memoria de Claude **no viaja entre PCs**: el norte está escrito en el PLAN por eso.
-- 🖥️ En la notebook hay Node 24 y gitleaks, y `kit-sync` quedó en LIMPIO. En la PC `Usuario` no está
-  `D:\vibe-hallazgos\`: lo privado está en `guidocameraeq/vibe-research`.
-- 🖥️ **Los directores de los dos Hermes corren en la PC `clientes`**: se los lee por `gh`. No hace falta
-  preguntarles si anotan los tiempos por tarea: se oficializa en sus skills, en la misión 5.
-- ❓ **Pregunta abierta** (FLOTA §8): la segunda cuenta de GitHub. Frena el racimo G. **Su nombre no
-  entra al repo.**
-- 🔐 **Alertas abiertas de Hermes**, con el detalle solo en el archivo privado. Las arregla Guido.
-  **NO VERIFICADO.**
-- 🔴 **vibe-kit es PÚBLICO**: antes de cada push, gitleaks. Con varias sesiones sobre el repo, mirar
-  `git log` antes de cerrar.
+- **Comando de arranque en chat nuevo**:
+  `inicio — ejecutá el spec docs/SPEC-adaptacion-antigravity.md (está READY)`
+- **Fuentes de apoyo en disco**:
+  - Este repo (`C:\Users\Usuario\Desktop\vibe kit v2\vibe-kit`): base canónica de Misión 3 y Misión 4.
+  - Adaptación previa (`C:\Users\Usuario\Desktop\vibe-kit-main`): fuente para portar `kit/skills/docs-personales/`, `kit/skills/redteam-spec/SKILL.md`, `docs/SPEC-docs-personales*.md` y `docs/consulta/*-personales*.md`.
+- **Al terminar la construcción**: verificar los 6 criterios de aceptación del spec (incluyendo `kit-sync.ps1 sync` dando `LIMPIO` contra `~/.gemini/config/skills/`), marcar el spec como `✅ IMPLEMENTADO` y cerrar con `/cierre`.
 
 ## Bloqueos
 

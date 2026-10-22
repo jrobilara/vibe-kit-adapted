@@ -29,6 +29,7 @@ siguen consultando (ADR-020). El Arquitecto busca borradores en `docs/SPEC-*.md`
 | [`SPEC-relevamiento.md`](SPEC-relevamiento.md) | `/relevamiento` — incluye los 21 criterios del estreno y la Fase 2 |
 | [`SPEC-investigacion-chats.md`](SPEC-investigacion-chats.md) | La investigación de los chats (misión 2) y la hoja de ruta |
 | [`SPEC-profesionalizar-repo.md`](SPEC-profesionalizar-repo.md) | El orden de este repo (misión 3) |
+| [`SPEC-adaptacion-antigravity.md`](SPEC-adaptacion-antigravity.md) | Refactor y adaptación v2 del repo y del kit a Antigravity / Gemini (`READY`) |
 
 ## La misión en curso — [`mision-4/`](mision-4/)
 

@@ -5,6 +5,7 @@
 2026-10-21 — ver SESSION_HANDOFF.md
 
 ## 🔴 Crítico
+- [ ] **Ejecutar `docs/SPEC-adaptacion-antigravity.md` (`Estado: READY`)**: migrar el repo madre y `kit/` a Antigravity / Gemini sobre la base de Misión 3 + mejoras cerradas de Misión 4 (Diseño A frenos/correctores, Diseño C skill `/estado` y `estado-git.ps1`, subagentes con `Workspace: "branch" | "share"`, `kit-sync.ps1`, Modo DOCTOR en Equipador, `android-cli` en el menú, reemplazo de `docs-fyd` por `docs-personales` y atribución MIT a Guido).
 - [ ] **Misión 4 — diseñar el pack con Guido adentro, SOLO DISEÑO** (hoja de ruta: ADR-021; plan de 6
   tramos, 7 objetivos y el Arquitecto como agente único: en docs/mision-4/PLAN.md). Tramo 0 (biblioteca) ✅ ·
   Tramo 1 (radiografía director/obrero) ✅ · Tramo 2 (flota, repos, plataforma) ✅ · Tramo 3 (el mapa por objetivos,

@@ -2,6 +2,14 @@
 
 > Historia permanente. `/cierre` agrega una entrada AL TOPE en cada sesión; si hubo tag de versión, el título lo dice (` · vX.Y`). Orden descendente estricto. Nada de versiones duplicadas en otros docs. El porqué de cada cosa está en los ADR citados.
 
+## 2026-10-21 — Diseño y Red-Team de la adaptación v2 para Antigravity (Gemini)
+
+### Added
+- `docs/SPEC-adaptacion-antigravity.md` (`Estado: READY`): plano delta para adaptar `vibe-kit` (con las mejoras de Misión 3 y Misión 4 de Guido) a Antigravity / Gemini (`AGENTS.md`, `.agents/`, `~/.gemini/config/skills/`), auditado con `redteam-spec` (5 hallazgos integrados).
+
+### Changed
+- `docs/README.md`, `docs/TODO.md` y `docs/SESSION_HANDOFF.md`: actualizados para dejar lista la ejecución del spec en la próxima sesión.
+
 ## 2026-10-21 — Misión 4, tramo 4: el norte del diseño y los racimos A y C
 
 ### Added
