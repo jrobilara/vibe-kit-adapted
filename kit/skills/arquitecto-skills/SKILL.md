@@ -78,10 +78,10 @@ mano. Es la contracara del `/cierre` del repo madre: allá se editan y se pushea
 instalan en `~/.gemini/config/skills/`.
 
 > **Esquema de dos remotos (origin / upstream):**
-> - **`origin` (el fork adaptado de Juan para Antigravity):** `https://github.com/<tu-usuario>/vibe-kit.git` (si estás dentro de un clon local, leelo con `git remote get-url origin`; si todavía no está configurado en otra PC, preguntale a Juan la URL de su repo en GitHub).
+> - **`origin` (el fork adaptado de Juan para Antigravity):** `https://github.com/jrobilara/vibe-kit-adapted.git` (si estás dentro de un clon local, leelo con `git remote get-url origin`).
 > - **`upstream` (el repo original de Guido para Claude Code):** `https://github.com/guidocameraeq/vibe-kit.git`. Las mejoras futuras del método madre (p. ej. Misión 5) se traen en el repo madre con `git fetch upstream` e inspección selectiva (`git diff upstream/main -- docs/ kit/`), nunca con un `git pull` ciego que pise `AGENTS.md` o `docs-personales`.
 
-1. **Bajá el repo canónico de Juan fresco** (regla 2): `git clone --depth 1 https://github.com/<tu-usuario>/vibe-kit.git`
+1. **Bajá el repo canónico de Juan fresco** (regla 2): `git clone --depth 1 https://github.com/jrobilara/vibe-kit-adapted.git`
    a un directorio temporal. Si el repo es **privado** y pide credenciales, son del usuario (JAMÁS las manejás vos).
    *(Si esta PC ya tiene el clon del repo madre, podés hacer `git pull origin main` ahí y correr `powershell -ExecutionPolicy Bypass -File .agents/scripts/kit-sync.ps1 sync`.)*
 2. **Actualizá cada ruta kit-owned con diff-antes-de-pisar** (regla 3), copiando del clon a `~/.gemini/config/skills/`:

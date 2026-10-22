@@ -17,10 +17,11 @@ Se ejecutó y verificó de punta a punta la adaptación v2 de `vibe-kit` a **Goo
 
 ## Próximo paso
 
-**Título de la sesión: `vibe-kit · Configurar origin en GitHub o estrenar /estado y Modo DOCTOR`**
+**Título de la sesión: `vibe-kit · Estrenar /estado y Modo DOCTOR o continuar Misión 4`**
 
-- Cuando crees tu repositorio propio en GitHub para esta adaptación, agregalo con `git remote add origin <url>`, actualizá la URL en `kit/skills/arquitecto-skills/SKILL.md` (Modo AUTO-ACTUALIZAR), corré `powershell -ExecutionPolicy Bypass -File .agents/scripts/kit-sync.ps1 sync` y hacé `git push -u origin main`.
-- El remoto de Guido sigue disponible como `upstream` (`https://github.com/guidocameraeq/vibe-kit.git`, solo para `git fetch upstream`).
+- Remotos configurados y al día:
+  - `origin`: `https://github.com/jrobilara/vibe-kit-adapted.git` (repo propio de Juan para Antigravity, rama `main` pusheada).
+  - `upstream`: `https://github.com/guidocameraeq/vibe-kit.git` (repo original de Guido, solo para `git fetch upstream`).
 
 ## Bloqueos
 

@@ -2,10 +2,9 @@
 
 > ÚNICA fuente de pendientes del proyecto. Completado → SE BORRA (la historia vive en `CHANGELOG.md` y git). Header de 1 línea, sin narrativa de sesión.
 
-2026-10-21 — ver SESSION_HANDOFF.md
+2026-10-22 — ver SESSION_HANDOFF.md
 
 ## 🔴 Crítico
-- [ ] **Definir remoto `origin` propio de Juan en GitHub**: crear el repositorio en GitHub para esta adaptación Antigravity v2, agregarlo como `git remote add origin <url>` y reemplazar el placeholder `<tu-usuario>/vibe-kit` en `kit/skills/arquitecto-skills/SKILL.md`.
 - [ ] **Misión 4 — diseñar el pack con Guido adentro, SOLO DISEÑO** (hoja de ruta: ADR-021; plan de 6
   tramos, 7 objetivos y el Arquitecto como agente único: en docs/mision-4/PLAN.md). Tramo 0 (biblioteca) ✅ ·
   Tramo 1 (radiografía director/obrero) ✅ · Tramo 2 (flota, repos, plataforma) ✅ · Tramo 3 (el mapa por objetivos,
