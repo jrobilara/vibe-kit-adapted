@@ -72,7 +72,7 @@ distinta de construir — y en la práctica A y B terminan siendo dos formas de 
 la sección 3 del HANDOFF (*"ya decidido, no lo re-propongas"*). Una familia descartada sin razón
 escrita vuelve a proponerse dentro de un año y hay que averiguar todo de nuevo.
 
-**Se ofrecen las que quedan** con `AskUserQuestion` (≤4 por tanda). Si quedan más de 4, van las 4
+**Se ofrecen las que quedan** con `ask_question` (≤4 por tanda). Si quedan más de 4, van las 4
 mejor apoyadas por evidencia y el resto se nombra en una línea.
 
 ### Después el ruteo

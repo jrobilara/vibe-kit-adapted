@@ -5,7 +5,7 @@
 2026-10-21 — ver SESSION_HANDOFF.md
 
 ## 🔴 Crítico
-- [ ] **Ejecutar `docs/SPEC-adaptacion-antigravity.md` (`Estado: READY`)**: migrar el repo madre y `kit/` a Antigravity / Gemini sobre la base de Misión 3 + mejoras cerradas de Misión 4 (Diseño A frenos/correctores, Diseño C skill `/estado` y `estado-git.ps1`, subagentes con `Workspace: "branch" | "share"`, `kit-sync.ps1`, Modo DOCTOR en Equipador, `android-cli` en el menú, reemplazo de `docs-fyd` por `docs-personales` y atribución MIT a Guido).
+- [ ] **Definir remoto `origin` propio de Juan en GitHub**: crear el repositorio en GitHub para esta adaptación Antigravity v2, agregarlo como `git remote add origin <url>` y reemplazar el placeholder `<tu-usuario>/vibe-kit` en `kit/skills/arquitecto-skills/SKILL.md`.
 - [ ] **Misión 4 — diseñar el pack con Guido adentro, SOLO DISEÑO** (hoja de ruta: ADR-021; plan de 6
   tramos, 7 objetivos y el Arquitecto como agente único: en docs/mision-4/PLAN.md). Tramo 0 (biblioteca) ✅ ·
   Tramo 1 (radiografía director/obrero) ✅ · Tramo 2 (flota, repos, plataforma) ✅ · Tramo 3 (el mapa por objetivos,
@@ -40,11 +40,9 @@
   **no se declara estable**. Quedan 11 de 21 criterios sin verificar (checklist en
   `docs/SPEC-relevamiento.md`). Se mide: ¿la invocaste sin que te la recuerden? ¿cuántas preguntas de
   más? ¿el Arquitecto repitió alguna? (Hubo un estreno parcial en la PC del compañero: Anexo A1 del acta.)
-- [ ] **Estreno real del Modo B**: primera feature grande sobre el ERP con `/arquitecto` en la carpeta
+- [ ] **Estreno real del Modo B**: primera feature grande sobre una app existente con `/arquitecto` en la carpeta
   del proyecto.
-- [ ] **PC `Usuario`**: traer la misión 3 antes de trabajar ahí. `git pull` y después
-  `bash .claude/scripts/kit-sync.sh sync` hasta que dé LIMPIO (el script conserva solo su carpeta de
-  proyectos), o decirle `actualizate` al Equipador. Los pasos están en el handoff del 2026-10-21.
+- [ ] **Estreno real de `/estado` y `Modo DOCTOR`** en un proyecto real de Juan.
 
 ## 🟡 Cuando se pueda
 - [ ] **Elegir el nombre del proyecto** (descartados: Obrador, Andamio, Batuta, Cimientos, Plano). Al
@@ -60,8 +58,7 @@
 - [ ] **Fase 2 de `/relevamiento`**: 7 piezas diseñadas y no construidas (la más pedida: que lea sola
   el código de la app). Cada una tiene su condición de reapertura en REJ-014; el diseño, en
   `docs/SPEC-relevamiento.md` §Fase 2. Esperan evidencia de uso, no tiempo.
-- [ ] **Fase 2 de `docs-fyd`**: `/inventario-fyd` (Excel + Mapa + hub privado). Mientras, el Excel sale
-  del Kanban (columnas en `docs/SPEC-docs-fyd.md` §Fase 2).
+- [ ] **Fase 2 de `docs-personales`**: verificación en vivo opcional (ver `docs/SPEC-docs-personales-v2.md`).
 - [ ] **Insumos para la misión 4** (de la misión 3, ADR-023): `docs/specs/` como carpeta de SPEC en
   todos los proyectos · "misión y visión" como nombre de P7 · lo que es de cada PC (hoy una línea con
   lugar vacío en el Arquitecto) quizá en un archivo local aparte.

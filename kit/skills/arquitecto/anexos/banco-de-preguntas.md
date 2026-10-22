@@ -4,8 +4,8 @@ Banco único del Arquitecto para apps nuevas (greenfield) o features grandes. Si
 
 ## Mecánica (no negociable)
 
-- **Una pregunta por vez** con `AskUserQuestion` (tandas de 2 como máximo). Máx **4 opciones** por pregunta, `header` ≤12 caracteres, `multiSelect: true` donde aplique (entidades, checklist de concerns). La opción libre "Otra" la agrega sola la herramienta.
-- **SIEMPRE una opción "(Recomendado)"** con el motivo en una frase. Cero jerga: si usás un término técnico (RLS, multi-tenant), traducilo a beneficio concreto entre paréntesis.
+- **Una pregunta por vez** con `ask_question` (tandas de 2 como máximo). Máx **4 opciones** por pregunta, `header` ≤12 caracteres, `is_multi_select: true` donde aplique (entidades, checklist de concerns). La opción libre "Otra" la agrega sola la herramienta.
+- **SIEMPRE una opción "(Recomendado)"** con el motivo en una frase. Sin relleno: jerga técnica estándar OK; si usás un término de un stack que Juan no maneja (RLS, multi-tenant, edge functions), definilo en una línea entre paréntesis.
 - **Fast-path:** ofrecé de entrada *"decí 'dale con los defaults' y avanzo con todas las recomendadas"*. Si lo elige, salteá todo y confirmá SOLO las dos decisiones ⚠️ (multi-tenant e idiomas) y el checklist de concerns. Lo demás va con defaults a Supuestos.
 - **Persistencia:** después de CADA tanda de respuestas, actualizá el borrador del spec en disco ANTES de la siguiente tanda. Si la sesión se corta, nada se pierde.
 - **Solo preguntás lo que elimina una rama entera de decisión** (cambia el stack, activa un concern caro de retrofitear, o es casi irreversible). Tope 3-5 preguntas por tanda, 8-12 en total. Nada de relleno.
@@ -30,7 +30,7 @@ Acá se decide el carril, las entidades y los módulos. Respetá el orden y los 
   2. Celular Android → Expo + Supabase + EAS
   3. Programa de Windows → Tauri + Supabase/SQLite
   4. Procesar datos y ver tableros → Tauri/Next + DuckDB + especialista de datos
-- **S2 Entidades (multiSelect):** ¿con qué cosas trabaja la app? Facturas · Clientes/proveedores · Productos · Objetivos comerciales · Otra
+- **S2 Entidades (is_multi_select):** ¿con qué cosas trabaja la app? Facturas · Clientes/proveedores · Productos · Objetivos comerciales · Otra
 - **S3 Login:** ¿la gente inicia sesión?
   1. Sí, cada uno con su usuario **(Recomendado si la usa más de una persona)** → Supabase Auth + RLS
   2. No, solo yo en mi máquina → anotá `auth: none` y **salteá S4, S5 y S6** (avisá: sin login no hay control de acceso)
@@ -57,7 +57,7 @@ Acá se decide el carril, las entidades y los módulos. Respetá el orden y los 
 - **R2 Auditoría:** ¿saber quién hizo qué y cuándo? **(Recomendado y NO opcional si hay plata/facturación de por medio)**.
 - **R3 Alcance:** ¿qué dejamos AFUERA a propósito en la v1? Arrancar con lo mínimo que resuelve el dolor #1 **(Recomendado → YAGNI)**. Alimenta `Scope: fuera de alcance`.
 
-**Checklist de concerns (cerrá la etapa con esto, multiSelect, todo tildado por defecto):** roles/permisos · listas configurables · manejo de errores · logging (Sentry) · auditoría — la persona destilda solo lo que está 100% segura de no querer. Apagados por defecto: feature flags · notificaciones · settings. Coherencias obligatorias:
+**Checklist de concerns (cerrá la etapa con esto, is_multi_select, todo tildado por defecto):** roles/permisos · listas configurables · manejo de errores · logging (Sentry) · auditoría — la persona destilda solo lo que está 100% segura de no querer. Apagados por defecto: feature flags · notificaciones · settings. Coherencias obligatorias:
 - Multi-tenant ON solo si S5 = sí ⚠️; i18n ON solo si S10 = varios idiomas ⚠️.
 - Si S3 = sin login, roles/auditoría/multi-tenant quedan OFF (no aplican).
 

@@ -1,7 +1,7 @@
 # Cómo usar el Extractor (mini guía)
 
 > El agente que convierte tus TikToks guardados en mejoras curadas del sistema. Su cerebro
-> vive en el `CLAUDE.md` de esta misma carpeta (si esta guía y aquel difieren, gana aquel). v2026-07-11.
+> vive en el `AGENTS.md` de esta misma carpeta (si esta guía y aquel difieren, gana aquel). v2026-10-21.
 
 ## Qué es, en una frase
 
@@ -11,10 +11,10 @@ toca el sistema — por diseño.
 
 ## Cómo se usa (3 pasos)
 
-1. **VSCode → Archivo → Abrir carpeta** → `vibe-kit\observatorio\extractor` (la carpeta del repo en tu PC)
-2. Abrí el chat de Claude Code ahí. **Modelo: Opus o Sonnet van perfecto** — es trabajo
+1. **Antigravity → Archivo → Abrir carpeta** → `vibe-kit\observatorio\extractor` (la carpeta del repo en tu PC)
+2. Abrí el chat de Antigravity ahí. **Un modelo rápido (`flash`) alcanza perfecto** — es trabajo
    mecánico de extracción, no hace falta gastar el modelo grande.
-3. **Pegá los links y nada más.** El CLAUDE.md de la carpeta ya le dio el rol, el pipeline
+3. **Pegá los links y nada más.** El `AGENTS.md` de la carpeta ya le dio el rol, el pipeline
    y el contrato. No hay prompt que copiar.
 
 **Punto dulce: 3-6 links por tanda** (más se vuelve largo de revisar después).

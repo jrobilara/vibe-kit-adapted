@@ -11,11 +11,11 @@ Los módulos que SIEMPRE se olvidan al arrancar y después cuestan carísimo ret
 
 | Concern | En criollo | Librería / patrón | Se materializa en |
 |---|---|---|---|
-| **Roles / permisos** | Quién puede ver y tocar qué | **RLS en la DB** (seguridad real) + **CASL** (`@casl/ability` + `@casl/react`) en la UI | Spec: matriz rol×acción. CLAUDE.md: regla "toda tabla nueva con RLS" |
-| **Listas configurables** | Categorías, sucursales, estados que el negocio cambia solo | Tablas Postgres + panel **Refine** o **React-Admin** | Spec: lista de catálogos. CLAUDE.md: regla "fila en tabla, nunca hardcode" |
+| **Roles / permisos** | Quién puede ver y tocar qué | **RLS en la DB** (seguridad real) + **CASL** (`@casl/ability` + `@casl/react`) en la UI | Spec: matriz rol×acción. AGENTS.md: regla "toda tabla nueva con RLS" |
+| **Listas configurables** | Categorías, sucursales, estados que el negocio cambia solo | Tablas Postgres + panel **Refine** o **React-Admin** | Spec: lista de catálogos. AGENTS.md: regla "fila en tabla, nunca hardcode" |
 | **Errores estándar** | Cuando algo falla: reintenta, avisa claro, registra | Patrón reintento + toast + Sentry | Spec: comportamiento ante fallas por integración |
-| **Logging / observabilidad** | Ver qué pasó cuando algo se rompió en producción | **Sentry** (nextjs, react-native, tauri, python) — día 1, en todos los entornos | Spec: Sentry en cada entorno. CLAUDE.md: DSN + convención |
-| **Auditoría / activity-log** | Quién hizo qué y cuándo | Triggers Postgres → tabla `audit_log` (o pgAudit) | Spec: qué tablas se auditan. Regla en el CLAUDE.md del proyecto |
+| **Logging / observabilidad** | Ver qué pasó cuando algo se rompió en producción | **Sentry** (nextjs, react-native, tauri, python) — día 1, en todos los entornos | Spec: Sentry en cada entorno. AGENTS.md: DSN + convención |
+| **Auditoría / activity-log** | Quién hizo qué y cuándo | Triggers Postgres → tabla `audit_log` (o pgAudit) | Spec: qué tablas se auditan. Regla en el AGENTS.md del proyecto |
 | **Dashboards** | Tableros de KPIs y gráficos | **Tremor** (KPIs/objetivos) / **Recharts** (a medida) / AG Grid (tipo Excel) | Spec: qué métricas muestra cada tablero |
 | **Settings / preferences** | Preferencias de usuario y de la app | Tablas `user_settings` / `app_settings` + Zustand / TanStack Query; next-themes | Spec: mismo panel que los catálogos |
 | **Notificaciones** | La app avisa cosas (push, mail) | **Novu** + expo-notifications + Resend / React Email | Spec: qué eventos disparan aviso y por qué canal |
@@ -43,6 +43,6 @@ Complementos habituales (no son concerns pero van con ellos): **react-hook-form 
 
 ## Salida esperada en el spec
 
-Sección **"Concerns transversales"** con la tabla recorrida entera (activado / diferido / no aplica + razón). Cada concern activado se traduce en TRES lugares: (1) la librería/patrón elegido, en el stack del SPEC-0; (2) una regla de 1 línea en las "Restricciones duras" del CLAUDE.md del proyecto; (3) un criterio de aceptación verificable en el SPEC-0.
+Sección **"Concerns transversales"** con la tabla recorrida entera (activado / diferido / no aplica + razón). Cada concern activado se traduce en TRES lugares: (1) la librería/patrón elegido, en el stack del SPEC-0; (2) una regla de 1 línea en las "Restricciones duras" del AGENTS.md del proyecto; (3) un criterio de aceptación verificable en el SPEC-0.
 
-> Honestidad: el CLAUDE.md es **advisory** — Claude puede saltárselo. Lo que DEBE cumplirse siempre va en **hooks deterministas**. Esta checklist asegura que el concern se *decida*; el hook asegura que se *cumpla*.
+> Honestidad: el AGENTS.md es **advisory** — Antigravity puede saltárselo. Lo que DEBE cumplirse siempre va en **checks deterministas** (tests, linter, CI o hooks de Antigravity). Esta checklist asegura que el concern se *decida*; el check asegura que se *cumpla*.

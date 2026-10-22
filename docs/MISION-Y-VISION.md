@@ -35,17 +35,17 @@ o copiarlo, pero es **personal y en evolución, sin promesa de soporte**.
 
 - **No construye apps.** Las apps se construyen en sus propias carpetas; acá se mantiene el método.
 - **No es un producto con soporte** (todavía): cambia cuando la evidencia lo pide.
-- **No es un plugin** de Claude Code: son skills que se copian a `~/.claude/` (ADR-001).
-- **El observatorio no aplica nada**: mira, extrae y propone; decide la sesión madre con Guido.
+- **No es un plugin**: son skills que se copian a `~/.gemini/config/skills/` en la adaptación a Antigravity (o al directorio global de skills de la plataforma, ADR-001, ADR-024).
+- **El observatorio no aplica nada**: mira, extrae y propone; decide la sesión madre.
 
 ## De dónde viene
 
-De dos auditorías de chats largos (Hermes, ~4 meses; Perseo, 6 semanas), que dieron el playbook; de
-un v1 que murió sin instalarse (`legacy/vibe-kit-v1/`); y de la investigación de 70 días de uso
-(`tips/tanda-2026-10-chats.md`). La historia completa está en `docs/DECISIONS.md`.
+De dos auditorías de chats largos de Guido (Hermes, ~4 meses; Perseo, 6 semanas), que dieron el playbook; de
+un v1 que murió sin instalarse (`legacy/vibe-kit-v1/`); de la investigación de 70 días de uso
+(`tips/tanda-2026-10-chats.md`); y de su adaptación a Google Antigravity para Juan (`docs/PORTABILIDAD-ANTIGRAVITY.md`, ADR-024). La historia completa está en `docs/DECISIONS.md`.
 
 ## Qué otros sistemas toca
 
-- **`~/.claude/` de cada PC**: el kit se copia ahí desde `kit/` (la fuente es este repo, ADR-003).
-- **Los proyectos de Guido**: el Arquitecto les monta CLAUDE.md, docs y skills `/inicio`/`/cierre`.
-- **GitHub** (este repo, público): de acá baja el Equipador cuando le dicen `actualizate`.
+- **`~/.gemini/config/skills/` de cada PC**: el kit se copia ahí desde `kit/` con `.agents/scripts/kit-sync.ps1` (la fuente es este repo, ADR-003, ADR-024).
+- **Los proyectos**: el Arquitecto les monta `AGENTS.md`, docs, scripts y skills `/inicio`, `/cierre` y `/estado`.
+- **GitHub** (`origin` y `upstream`): de acá baja el Equipador cuando le dicen `actualizate`.

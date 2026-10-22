@@ -4,8 +4,8 @@ import base64, difflib, json, re, subprocess, sys
 
 flota = json.load(open(sys.argv[1], encoding="utf-8"))
 KIT = sys.argv[2]
-UNIVERSALES = {"inicio", "cierre"}
-DEL_KIT = {"arquitecto", "arquitecto-skills", "docs-fyd", "relevamiento"}
+UNIVERSALES = {"inicio", "cierre", "estado"}
+DEL_KIT = {"arquitecto", "arquitecto-skills", "docs-personales", "redteam-spec", "relevamiento"}
 
 
 def git(*a):
@@ -47,7 +47,7 @@ for r in flota:
     full, ref = r["repo"], r["rama"]
     fila = {"repo": full}
     for s in UNIVERSALES & set(r["skills"]):
-        txt = gh_file(full, f".claude/skills/{s}/SKILL.md", ref) or ""
+        txt = gh_file(full, f".agents/skills/{s}/SKILL.md", ref) or gh_file(full, f".claude/skills/{s}/SKILL.md", ref) or ""
         best = max(((difflib.SequenceMatcher(None, txt, m).ratio(), f, h) for f, h, m in moldes[s]), default=None)
         fila[s] = {"kb": round(len(txt.encode()) / 1024, 1),
                    "parecido": round(best[0], 2) if best else None,
@@ -58,7 +58,7 @@ for r in flota:
             if s in DEL_KIT:
                 fila.setdefault("copias_del_kit", []).append(s)
             continue
-        txt = gh_file(full, f".claude/skills/{s}/SKILL.md", ref)
+        txt = gh_file(full, f".agents/skills/{s}/SKILL.md", ref) or gh_file(full, f".claude/skills/{s}/SKILL.md", ref)
         fila["propias"][s] = {"kb": round(len((txt or "").encode()) / 1024, 1), "desc": desc(txt)}
     res.append(fila)
 

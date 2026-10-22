@@ -36,7 +36,7 @@ chequeo:     -                         # - | PENDIENTE | <fecha>   (el tramo 5)
 ## Hoja de campo
 <!-- Lo derivado a caminar: pregunta reformulada · a quién · para qué campo · estado. -->
 
-## Tareas de Guido
+## Tareas de Juan
 <!-- Lo que quedó pendiente de él (sacar un listado, llamar al proveedor, probar el supuesto). -->
 
 ## Descartados

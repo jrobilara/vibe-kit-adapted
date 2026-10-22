@@ -75,12 +75,12 @@ No esperes al final para escribir. Al arrancar la entrevista, creá `SPEC-0.md` 
 
 - Al cerrar cada tanda de preguntas, **volcá lo decidido** en su sección y dejá `(pendiente)` en lo que falta.
 - Ventaja: si la sesión se corta o se compacta, el borrador en disco sobrevive y otra sesión retoma desde ahí.
-- La versión final completa se escribe **recién con el plano aprobado** (Paso 5 del Modo A / B4 del Modo B — nunca adentro de Plan Mode), reemplazando el borrador en el mismo archivo.
+- La versión final completa se escribe **recién con el plano aprobado** (Paso 5 del Modo A / B4 del Modo B — nunca adentro del modo Planning), reemplazando el borrador en el mismo archivo.
 
 ## Antes de marcar READY
 
 1. Auto-review: sin `(pendiente)` ni placeholders, criterios binarios, FUERA de alcance con contenido, cada ⚠️ con consecuencia, concerns cruzados con la checklist.
-2. Si el proyecto toca plata, permisos o datos sensibles: delegá al subagente `redteam-spec` para que lo ataque, e integrá los hallazgos válidos.
+2. Si el proyecto toca plata, permisos o datos sensibles: delegá a la skill `redteam-spec` (en un subagente aparte) para que lo ataque, e integrá los hallazgos válidos.
 3. El usuario lo leyó y aprobó → recién ahí Estado: READY. La sesión fresca SOLO ejecuta specs en READY.
 
 ---

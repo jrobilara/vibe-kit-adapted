@@ -1,11 +1,11 @@
-# PLAYBOOK MAESTRO — Documentación y sistema de trabajo con Claude Code
+# PLAYBOOK MAESTRO — Documentación y sistema de trabajo con Google Antigravity
 
 > **Qué es esto:** LA referencia única para arrancar (o reordenar) cualquier proyecto tuyo con
-> Claude Code. Fusiona tres fuentes: el playbook de Hermes (2026-07-02, tras auditar ~4 meses /
+> Google Antigravity (adaptado del playbook original de Guido para Claude Code). Fusiona tres fuentes: el playbook de Hermes (2026-07-02, tras auditar ~4 meses /
 > ~1.000 prompts), el "Sistema de Documentación Viva" original (mayo 2026), y la auditoría +
 > implementación completa en Perseo (2026-07-02/03, 6 semanas / 151 MB de sesión analizados).
-> Todo lo que dice acá está **probado en proyectos reales tuyos**; donde hubo teoría vs práctica,
-> ganó la práctica.
+> Todo lo que dice acá está **probado en proyectos reales**; donde hubo teoría vs práctica,
+> ganó la práctica. Detalle de la portabilidad a Antigravity: `docs/PORTABILIDAD-ANTIGRAVITY.md`.
 >
 > **Cómo se usa:** está partido en **dos partes independientes**. La Parte 1 (documentación) se
 > aplica sola; la Parte 2 (sistema de trabajo) se aplica sola o encima de la 1. Si un proyecto ya
@@ -67,11 +67,11 @@ los errores técnicos causados por amnesia post-compactación; y ~45 mensajes de
 6. **Nada de espejos manuales.** Ni dashboards HTML que duplican markdowns, ni resúmenes que
    repiten otros docs. El drift es inevitable. *(El `master-plan.html` era la "pieza central" del
    sistema v1; se retiró de los DOS proyectos — REJ-016 en Perseo. Un dato, un lugar.)*
-7. **CLAUDE.md es solo reglas.** Se carga en cada sesión consumiendo contexto: cuanto más liviano,
+7. **AGENTS.md (o CLAUDE.md) es solo reglas.** Se carga en cada sesión consumiendo contexto: cuanto más liviano,
    mejor. Arquitectura, schemas y debugging van a archivos dedicados.
 8. **Lo superado se archiva, no se borra.** `docs/archive/` + marca en la línea 1
    ("✅ IMPLEMENTADA <fecha>"). Un SPEC vivo que dice "implementá esto" cuando ya está hecho es una
-   trampa post-compactación: Claude lo puede re-ejecutar.
+   trampa post-compactación: el agente lo puede re-ejecutar.
 9. **Las adaptaciones son aceptables; el esqueleto, no.** Nombres y cantidad de archivos varían
    por proyecto; la filosofía y los reflejos son los mismos en todos.
 
@@ -80,7 +80,7 @@ los errores técnicos causados por amnesia post-compactación; y ~45 mensajes de
 ```
 proyecto/
 ├── README.md               ← identidad pública
-├── CLAUDE.md               ← reglas para Claude (Parte 2)
+├── AGENTS.md               ← reglas para Antigravity (Parte 2)
 └── docs/
     ├── ARCHITECTURE.md     ← identidad técnica (stack, topología)
     ├── DECISIONS.md        ← ADRs, CON ÍNDICE al tope
@@ -173,28 +173,27 @@ archivos se llamen igual que acá.
 
 ---
 
-# PARTE 2 — EL SISTEMA DE TRABAJO (CLAUDE.md, skills, hooks y demás)
+# PARTE 2 — EL SISTEMA DE TRABAJO (AGENTS.md, skills, reglas y demás)
 
 ## 2.1 El ciclo de vida de una misión
 
 ```
 1. Chat NUEVO en la raíz del proyecto
-   → el hook SessionStart ya inyectó handoff + TODO + git (§2.4)
-   → decís "inicio" (+ la misión). Claude confirma en 3 líneas y espera tu OK.
-2. TRABAJAR — las reglas del CLAUDE.md operan solas.
+   → la regla .agents/rules/inicio-sesion.md orienta la lectura inicial (§2.4)
+   → decís "inicio" (+ la misión). Antigravity confirma en 3 líneas (y avisa si hay pendientes de git) y espera tu OK.
+2. TRABAJAR — las reglas del AGENTS.md operan solas (y "/estado" consulta git en criollo cuando quieras).
 3. "cierre" → docs al día + commit + push + SHA → EL CHAT SE DESCARTA.
 ```
 
-- **Cambió la tarea → cambiá el chat.** La compactación queda como emergencia, no como forma de
-  vida. Para la emergencia existe **`cierre parcial`**: guarda el estado en el handoff y te deja
-  listo para `/compact` sin cerrar todo.
+- **Cambió la tarea → cambiá el chat.** Cuando el contexto crece mucho, existe **`cierre parcial`**: guarda el estado en el handoff y te deja
+  listo para abrir una conversación limpia sin cerrar todo (o usar `/compact` como emergencia).
 - **Specs grandes en dos sesiones**: investigar/diseñar en una → guardar el SPEC como ARCHIVO →
   cerrar → "inicio — ejecutá el SPEC X" en sesión fresca. Nunca mega-prompts pegados a mano. Al
   implementarse, el SPEC se archiva (§1.2.8).
 - **Chats paralelos** solo para trabajo genuinamente paralelo (Desktop y Mobile a la vez; un
-  workflow largo corriendo aparte). No como "personas" fijas — los roles viven en CLAUDE.md.
+  workflow largo corriendo aparte). No como "personas" fijas — los roles viven en `AGENTS.md`.
 
-## 2.2 CLAUDE.md = el rol (se carga solo en cada chat)
+## 2.2 AGENTS.md = el rol (se carga solo en cada chat)
 
 Es lo que antes pegabas a mano como "prompt de rol". Estructura probada (en este orden):
 
@@ -234,76 +233,54 @@ Es lo que antes pegabas a mano como "prompt de rol". Estructura probada (en este
 **La regla madre: una skill nace de un ritual que ya repetiste 3+ veces con los mismos pasos.**
 No se inventan skills "por las dudas".
 
-Viven en `<raíz>/.claude/skills/<nombre>/SKILL.md` y **se versionan con el repo** (¡verificá el
-.gitignore! — §2.6). Se invocan con `/nombre` (infalible) o por lenguaje natural (casi siempre).
+Viven en `<raíz>/.agents/skills/<nombre>/SKILL.md` y **se versionan con el repo** (¡verificá el
+.gitignore! — §2.6). Se invocan con `/nombre` o por lenguaje natural.
 Mismos nombres en todos tus proyectos = memoria muscular.
 
 | Skill | ¿Cuándo aplica? | Qué hace según el proyecto |
 |---|---|---|
-| `/inicio` | **Siempre** | Usa el contexto que inyectó el hook (NO relee), cruza handoff vs git real, detecta drift/SPECs sin archivar, 3 líneas, espera misión y OK. |
-| `/cierre` (+ modo `parcial`) | **Siempre** | El protocolo de §1.6 completo + checklist de regresión de los bugs históricos del proyecto + actualizar memoria si cambió algo estructural + commit/push/SHA. |
-| `/smoke` | Si hay algo que verificar | Hermes: rebuild + launch + batería vía MCP. Perseo: mensaje real por WhatsApp + verificar la DB + **limpiar datos de prueba**. Una API: pegarle a los endpoints. Siempre: reporte con evidencia (estado inicial / test 1 / fixes / test 2). |
+| `/inicio` | **Siempre** | Lee `SESSION_HANDOFF.md`, `TODO.md` y git real, detecta drift/SPECs sin archivar y avisa si hay commits sin pushear o cambios sueltos, 3 líneas, espera misión y OK. |
+| `/cierre` (+ modo `parcial`) | **Siempre** | El protocolo de §1.6 completo + checklist de regresión de los bugs históricos del proyecto + commit/push/SHA. |
+| `/estado` | **Siempre** | Corre `.agents/scripts/estado-git.ps1` y traduce en criollo en qué rama estás, qué se tocó y qué falta subir a GitHub, sin tocar nada (Diseño C). |
+| `/smoke` | Si hay algo que verificar | Rebuild + launch + batería de pruebas reales. Siempre: reporte con evidencia (estado inicial / test 1 / fixes / test 2). |
 | `/deploy` o `/release` | Si hay ritual de publicación | `/release` si publicás versiones (tags + CHANGELOG + gates). `/deploy` si aplicás a un servidor (push → pull → restart si toca runtime → health + smoke). |
 
-Si dos proyectos comparten carpeta raíz, sufijá (`/inicio-mobile`) y anotá en cada CLAUDE.md qué
+Si dos proyectos comparten carpeta raíz, sufijá (`/inicio-mobile`) y anotá en cada `AGENTS.md` qué
 skills le pertenecen.
 
-> **Nota de máquina (esta PC, C:).** Set global instalado (actualizado 2026-08-03):
-> `arquitecto` + `arquitecto-skills` (el Equipador) + las dos **kit-owned**: `docs-fyd` (doc técnica
-> de auditoría FyD por repo, desde 2026-07-23) y `relevamiento` (el tramo de ANTES del Arquitecto,
-> desde 2026-08-03) + el Tier 1 del menú — `brainstorming`
-> (specs SIEMPRE en formato SPEC-0), `writing-skills`, `systematic-debugging`,
-> `verification-before-completion`, `frontend-design`, `theme-factory`, `web-design-guidelines`,
-> `supabase`, `supabase-postgres-best-practices`, `shadcn` (symlink del CLI `skills`; se
-> actualiza con `npx skills update -g`), `codebase-to-course` — más el agente `redteam-spec`.
-> Tier 1 COMPLETO al 2026-07-06.
+> **Nota de máquina (esta PC, C:).** Set global instalado en `~/.gemini/config/skills/` (actualizado 2026-10-21):
+> las 5 **kit-owned**: `arquitecto`, `arquitecto-skills` (el Equipador), `docs-personales` (doc técnica
+> por repo), `redteam-spec` (revisor adversarial de specs) y `relevamiento` (el tramo de ANTES del Arquitecto)
+> + el Tier 1 del menú — `brainstorming` (specs SIEMPRE en formato SPEC-0), `writing-skills`,
+> `systematic-debugging`, `verification-before-completion`, `frontend-design`, `theme-factory`,
+> `web-design-guidelines`, `supabase`, `supabase-postgres-best-practices`, `shadcn`,
+> `codebase-to-course`, `android-cli`.
 > **La curaduría canónica de skills universales es `menu-skills.md` del Equipador** (qué entra,
-> qué no y por qué); esta nota solo registra qué hay ACÁ. En Bot Perseo (por-proyecto): hook
-> anti-escritura a la DB + MCP de Supabase read-only. El inventario de la OTRA máquina
-> (d:\SAAS — SQL Server, Twilio) vive en ESA máquina; copia de referencia archivada en
-> `Guia de vibe coding/legacy/KIT_SKILLS-maquina-dsaas-2026-07-05.md`. Pendiente: al llevar el
-> zip a esa PC, reconciliar su set con el menú del Equipador.
-> Cuando cambie el set de esta máquina, se actualiza esta nota — en ningún otro lado.
+> qué no y por qué); esta nota solo registra qué hay ACÁ.
 
-## 2.4 Hooks = automatismos que no dependen de que nadie se acuerde
+## 2.4 Reglas y scripts del proyecto (`.agents/`)
 
-En `<raíz>/.claude/settings.json` (se versiona) + scripts en `.claude/hooks/`:
+En `<raíz>/.agents/rules/` y `<raíz>/.agents/scripts/` (se versionan):
 
-- **SessionStart** (casi siempre vale la pena): inyecta `SESSION_HANDOFF.md` + cabecera del TODO +
-  últimos commits en cada chat nuevo — **y también después de un `/compact`**. Es el motivo por el
-  que ya no existe el "prompt de inicio" ni el RESUME-PROMPT.md: el chat arranca sabiendo dónde
-  está parado.
-- **Post-edición según lenguaje**: `bash -n` para `.sh`, `py_compile` para Python, `tsc --noEmit`
-  para TypeScript, `flutter analyze` para Dart. Atrapa el error al editarlo, no en producción.
-- **Anti-secretos (GLOBAL, en `~/.claude/settings.json` de la máquina)**: bloquea cualquier
-  comando que contenga un token/password literal (PATs, API keys, JWTs, connection strings con
-  password). Existe porque los settings de Hermes llegaron a acumular 4 tokens en texto plano.
-  **Es por-máquina: se recrea en cada PC** (§2.8).
-
-Nota Windows: en los comandos de hooks usar siempre `$CLAUDE_PROJECT_DIR` entre comillas (las
-carpetas con espacios rompen todo lo demás).
+- **Regla `inicio-sesion.md` (`trigger: always_on`)**: le indica a Antigravity leer `SESSION_HANDOFF.md`, `TODO.md` y los últimos commits al abrir cada conversación.
+- **Script `estado-git.ps1` (y `.sh`)**: devuelve en JSON determinístico el estado real de git para que `/estado` e `/inicio` no adivinen.
+- **Frenos en humano y corrector de git (en `AGENTS.md`, Diseño A)**: antes de cualquier acción irreversible exige responder las 4 preguntas en criollo (qué cambia, qué se puede perder, cómo volver atrás, si toca algo que hoy anda) y prohíbe comandos destructivos de git (`reset --hard`, `clean -f`, `push --force`, `stash`).
+- **Anti-secretos (en `AGENTS.md` y `.gitignore`)**: nunca ejecutar comandos con secretos literales ni versionar `.env`.
 
 ## 2.5 Permisos
 
-- Allowlist **moderada**: git local (status/log/diff/add/commit/push/pull), los comandos de tus
-  skills, y lecturas frecuentes. En "preguntar": todo lo destructivo (reset, force-push,
-  DROP/DELETE, restarts, ssh de escritura).
-- Dato medido: en 6 semanas de Perseo hubo solo 9 denegaciones — y varias eran desconfianza al
-  comando ilegible, no a la operación. **Comandos legibles (wrappers, archivos) reducen prompts de
-  permiso más que las allowlists.**
-- Nunca "always allow" a un comando que lleva un secreto adentro (el hook lo bloquea igual).
-- El skill `/fewer-permission-prompts` genera la allowlist desde tus transcripts reales.
+- Comandos legibles (scripts en `.agents/scripts/`, wrappers claros) reducen prompts de permiso y errores.
+- En "preguntar siempre": todo lo destructivo o con efecto externo (borrados, migraciones, deploys, pagos, envíos a personas reales).
+- Nunca ejecutar un comando que lleve un secreto literal adentro.
 
 ## 2.6 Seguridad y red de datos (lo que nadie mira hasta que duele)
 
 - **Claves SSH SIEMPRE en `~/.ssh/`, jamás dentro del proyecto.** Dentro del árbol del proyecto
-  las lee cualquier subagente/workflow y están a un descuido del .gitignore de subirse al repo.
+  las lee cualquier subagente y están a un descuido del .gitignore de subirse al repo.
   Con un `Host <alias>` en `~/.ssh/config` (y otro para la IP), todos los comandos existentes
-  siguen funcionando sin `-i`. Claude no pierde ningún acceso.
-- **El `.gitignore` y `.claude/`**: versioná `.claude/skills/`, `.claude/settings.json` y
-  `.claude/hooks/`; ignorá `settings.local.json` y `launch.json`. *(En Perseo el .gitignore
-  ignoraba `.claude/` entero: el sistema se habría creado y git lo habría ignorado en silencio —
-  no viajaba a GitHub ni sobrevivía un cambio de PC.)*
+  siguen funcionando sin `-i`.
+- **El `.gitignore` y `.agents/`**: versioná `.agents/skills/`, `.agents/rules/` y
+  `.agents/scripts/`. *(Si el `.gitignore` ignora `.agents/`, el sistema no viaja a GitHub ni sobrevive un cambio de PC.)*
 - **Backups: verificados, no supuestos.** El RECOVERY de Perseo decía "Supabase tiene backups
   diarios + PITR" — nunca verificado, y en el plan Free no existen. Regla: si toda tu data vive en
   un solo lugar, cron de `pg_dump` semanal con rotación + **una corrida de prueba real** el día
@@ -344,49 +321,49 @@ carpetas con espacios rompen todo lo demás).
 
 | Viaja con git (clonás y está) | Por-máquina (recrear en PC nueva, ~5 min) |
 |---|---|
-| `.claude/skills/` (los comandos) | Clave SSH en `~/.ssh/` + `~/.ssh/config` |
-| `.claude/settings.json` (hooks + permisos del proyecto) | Hook global anti-secretos (`~/.claude/`) |
-| `.claude/hooks/` (los scripts) | PAT de GitHub / credenciales |
-| `CLAUDE.md`, `docs/`, `scripts/` | `settings.local.json` (preferencias locales) |
+| `.agents/skills/` (`inicio`, `cierre`, `estado`) | Clave SSH en `~/.ssh/` + `~/.ssh/config` |
+| `.agents/rules/inicio-sesion.md` | Skills globales en `~/.gemini/config/skills/` |
+| `.agents/scripts/` (`estado-git.ps1`, `.sh`) | PAT de GitHub / credenciales |
+| `AGENTS.md`, `docs/`, `scripts/` | Configuración local de MCP (`mcp_config.json`) |
 
 ## 2.9 Receta de aplicación
 
-> **Existen templates reales de todo lo de abajo** (skills genéricas, hooks, CLAUDE esqueleto,
-> docs mínimos, contratos de smoke/deploy) en `~/.claude/skills/arquitecto/templates/` — ver su
+> **Existen templates reales de todo lo de abajo** (skills genéricas, regla de inicio, `AGENTS.template.md`,
+> docs mínimos, contratos de smoke/deploy) en `~/.gemini/config/skills/arquitecto/templates/` — ver su
 > `LEEME.md`. Instanciar desde ahí, no reescribir de cero.
 
 ### Proyecto nuevo — el camino automático: `/arquitecto`
 
 Para un proyecto nuevo de verdad (idea → app), el camino canónico es la skill global
-**`/arquitecto`** (ver `PROPUESTA-VIBE-KIT-V2.md` en Guia de vibe coding): te entrevista, piensa
+**`/arquitecto`** (ver `legacy/PROPUESTA-VIBE-KIT-V2.md`): te entrevista, piensa
 los concerns que no viste (roles, listas configurables, multi-tenant ⚠️, i18n ⚠️), escribe el
 SPEC-0 con gate de aprobación real, y ejecuta esta receta completa por vos — el proyecto nace en
 régimen. Los pasos de abajo quedan como referencia y para montarlo a mano.
 
-### Proyecto nuevo a mano (~1-2 horas, lo hace Claude con tu OK)
+### Proyecto nuevo a mano (~1-2 horas, lo hace Antigravity con tu OK)
 
-1. Definir la **raíz** (donde abrís los chats = donde viven `.claude/` y `CLAUDE.md`).
-2. `CLAUDE.md` mínimo viable (§2.2, 30 min) — instanciar `CLAUDE.template.md`.
+1. Definir la **raíz** (donde abrís los chats = donde viven `.agents/` y `AGENTS.md`).
+2. `AGENTS.md` mínimo viable (§2.2, 30 min) — instanciar `AGENTS.template.md`.
 3. Docs de estado mínimos: `SESSION_HANDOFF` + `TODO` + `CHANGELOG` (el resto cuando el proyecto
    los pida — §1.5).
-4. Skills que apliquen según la regla de 3+ (§2.3) — `/inicio` y `/cierre` van siempre; `/smoke`
+4. Skills que apliquen según la regla de 3+ (§2.3) — `/inicio`, `/cierre` y `/estado` van siempre; `/smoke`
    y `/deploy` recién cuando el ritual real exista (sus contratos esperan en los templates).
-5. Hooks (§2.4) + permisos (§2.5).
-6. **Verificar el .gitignore** (§2.6) y que `git status` muestre las skills trackeadas.
+5. Regla `.agents/rules/inicio-sesion.md` + scripts `.agents/scripts/estado-git.*` (§2.4).
+6. **Verificar el .gitignore** (§2.6) y que `git status` muestre `.agents/` trackeado.
 7. Primer commit + primer ciclo completo (inicio → algo chico → cierre) para probar el sistema.
 
 ### Proyecto existente
 
-Igual, pero antes: §1.8 (auditar y respetar los docs que ya funcionan). El CLAUDE.md nuevo
+Igual, pero antes: §1.8 (auditar y respetar los docs que ya funcionan). El `AGENTS.md` nuevo
 referencia los docs con SUS nombres.
 
 ### El atajo — prompt para copiar/pegar en un chat del proyecto
 
-> Leé `C:\Users\Usuario\Desktop\Proyectos\Guia de vibe coding\PLAYBOOK-MAESTRO.md` y aplicá ese
+> Leé `PLAYBOOK-MAESTRO.md` del repo `vibe-kit` y aplicá ese
 > sistema a este proyecto: auditá cómo se trabaja acá (git, docs existentes, rituales repetidos),
 > decidí qué partes aplican (Parte 1 según §1.8 si ya hay docs; Parte 2 con las skills que pasen
-> la regla de 3+), y armá el CLAUDE.md, los docs de estado, las skills y los hooks equivalentes.
-> Verificá que el .gitignore no esté ignorando `.claude/`. Mostrame el plan completo antes de
+> la regla de 3+), y armá el `AGENTS.md`, los docs de estado, las skills (`/inicio`, `/cierre`, `/estado`), la regla de inicio y los scripts equivalentes.
+> Verificá que el .gitignore no esté ignorando `.agents/`. Mostrame el plan completo antes de
 > escribir nada.
 
 ### Mantenimiento (que no se pudra)

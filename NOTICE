@@ -1,10 +1,8 @@
-vibe-kit
-Copyright (c) 2026 guidocameraeq — licenciado bajo MIT (ver LICENSE).
+vibe-kit (Adaptación a Google Antigravity / Gemini)
+Copyright (c) 2026 guidocameraeq (obra original: https://github.com/guidocameraeq/vibe-kit)
+Copyright (c) 2026 Juan (adaptación a Google Antigravity, docs-personales y scripts PowerShell)
 
-Excepción: docs/consulta/referencia-prompts-fyd.md reproduce textual los prompts
-de documentación de FyD Sistemas, como referencia. NO está cubierto por la
-licencia MIT; sus derechos son de sus autores.
-
-Exception: docs/consulta/referencia-prompts-fyd.md reproduces verbatim text
-written by FyD Sistemas, for reference. It is NOT covered by the MIT license;
-its rights belong to its authors.
+Todo el contenido de este repositorio se distribuye bajo la licencia MIT (ver LICENSE).
+En esta adaptación se reemplazó `docs-fyd` (y su archivo de referencia `docs/consulta/referencia-prompts-fyd.md`)
+por `docs-personales` (`docs/consulta/referencia-prompts-personales.md`), por lo que el repositorio
+completo es 100% MIT sin excepciones propietarias.

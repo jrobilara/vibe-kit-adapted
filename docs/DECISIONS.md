@@ -29,6 +29,7 @@
 - ADR-021 · Investigar el uso real antes de rediseñar el pack — y vibe-kit sigue público (2026-10-12)
 - ADR-022 · Cómo se ejecutó la investigación: lo que se apartó del SPEC (2026-10-13)
 - ADR-023 · Profesionalizar el repo madre: portada, misión y visión, observatorio, TODO y licencia (2026-10-13)
+- ADR-024 · Adaptación v2 a Google Antigravity sobre Misión 3 y Misión 4: `kit-sync.ps1`, `/estado`, frenos en `AGENTS.md`, `docs-personales` (100% MIT) y atribución a Guido (2026-10-21)
 
 *Cada ADR nuevo suma su línea acá (lo pide `/cierre`).*
 
@@ -499,3 +500,12 @@ diferencias que no tenían razón de ser:
   (la idea fuerza de la tanda de chats: solo frena lo mecánico). Con esto **se acaba la excepción de
   ADR-021**: el diff da limpio en todas las PCs. *Descartado por ahora:* un archivo local por PC fuera
   de la skill (cambia el flujo del kit: insumo de la misión 4).
+
+## ADR-024 · Adaptación v2 a Google Antigravity sobre Misión 3 y Misión 4: `kit-sync.ps1`, `/estado`, frenos en `AGENTS.md`, `docs-personales` (100% MIT) y atribución a Guido (2026-10-21)
+Guido evolucionó `vibe-kit` en las Misiones 3 y 4 (`observatorio/`, `manuales/`, `docs/consulta/`, `kit-sync.sh`, y los diseños cerrados de Misión 4: Diseño A de frenos/correctores, Diseño C de salida hacia el usuario con `/estado`, y hallazgos de referencias externas). En paralelo, Juan tenía una primera portabilidad a Antigravity (`vibe-kit-main`) pre-Misión 3. **Decisión:** ejecutar una adaptación limpia v2 (`docs/SPEC-adaptacion-antigravity.md`) directamente sobre el árbol evolucionado de Misión 3 y 4:
+1. **Plataforma y paridad (`kit-sync.ps1` + `.sh`):** el repo vive sobre `AGENTS.md`, `.agents/rules/inicio-sesion.md`, `.agents/skills/{inicio,cierre,estado}` y `.agents/scripts/{kit-sync,estado-git}.{ps1,sh}`. El script `kit-sync.ps1` sincroniza y verifica las 5 skills propias (`arquitecto`, `arquitecto-skills`, `docs-personales`, `redteam-spec`, `relevamiento`) contra `~/.gemini/config/skills/` preservando la línea `**Carpeta de proyectos de esta máquina**` en la copia instalada y dejando `{{CARPETA_DE_PROYECTOS}}` en el repo.
+2. **Misión 4 aplicada a Antigravity:**
+   - **Diseño A (frenos y correctores):** al no existir `.claude/settings.json` en Antigravity, se incorporan en `AGENTS.md` y `AGENTS.template.md` las **4 preguntas en humano** antes de toda acción irreversible (qué cambia, qué se puede perder, cómo volver atrás, si toca algo que hoy anda) y el **corrector contra git destructivo** (`reset --hard`, `checkout --`, `restore`, `clean -f`, `branch -D`, `push --force`, `stash`).
+   - **Diseño C (`/estado` + aviso en `/inicio`):** se incorpora la skill universal `/estado` y el script `.agents/scripts/estado-git.ps1` (y `.sh`) tanto en este repo como en `kit/skills/arquitecto/templates/universales/`, más el aviso proactivo de 1 línea en `/inicio` cuando hay commits sin subir o árbol sucio.
+   - **Orquestación nativa y `Modo DOCTOR`:** `consultorio.md` enseña las 4 razones con nombre para delegar con `invoke_subagent`, el handoff por referencia, `Workspace: "branch"` y Reactive Wakeup; `arquitecto-skills/SKILL.md` suma el `Modo DOCTOR` (chequeo de solo-lectura de las 5 skills y la paridad) y soporte de doble remoto (`origin` / `upstream`); `menu-skills.md` suma `android-cli`.
+3. **Reemplazo de `docs-fyd` por `docs-personales` (100% MIT) y atribución a Guido:** se elimina todo rastro de FyD Sistemas en archivos activos y se porta `docs-personales` (`kit/skills/docs-personales/`, `docs/SPEC-docs-personales*.md`, `docs/consulta/*-personales*.md`), dejando el repositorio **100% bajo licencia MIT sin excepciones**. Se mantiene explícita la atribución a Guido (`guidocameraeq/vibe-kit`) como autor original del kit y de las plantillas del método "Cómo Arrancar un Proyecto" (aprobadas por su jefe) en `README.md`, `LICENSE`, `NOTICE` y `/relevamiento`, sin tocar jamás `kit/skills/relevamiento/plantillas/_fuente/`, `tips/`, `legacy/` ni `docs/mision-4/`.

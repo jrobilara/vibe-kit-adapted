@@ -6,7 +6,7 @@ import collections, datetime as dt, json, re, subprocess, sys
 FIX = re.compile(r"^(fix|hotfix|bugfix)\b|^\w+\(fix\)|\b(arregl|corrig|corrij|hotfix|bug)\w*", re.I)
 REVERT = re.compile(r"^revert\b|\brevertir (el |la |un |upgrade|cambio)|\brevertir \w+ (true|false)\b", re.I)
 TEST = re.compile(r"(^|/)(tests?|__tests__|test_\w+\.py$)|\.test\.|\.spec\.|_test\.(py|go|dart)$|(^|/)integration_test/|(^|/)supabase/tests/|(^|/)pruebas/", re.I)
-DOC = re.compile(r"\.md$|(^|/)docs?/|(^|/)\.claude/", re.I)
+DOC = re.compile(r"\.md$|(^|/)docs?/|(^|/)\.(claude|agents)/|(^|/)AGENTS\.md$", re.I)
 TIPO = re.compile(r"^(\w+)(\([^)]*\))?!?:")
 
 

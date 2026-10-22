@@ -66,7 +66,7 @@ Toda repregunta del revisor sale con estas cuatro, ni una menos (`header` ≤12 
 2. **"Anotalo como supuesto"** → balde `SUPUESTO` **con antídoto**: cómo verificarlo barato y cuánto cuesta.
 3. **"Preguntáselo a alguien"** → a la hoja de campo, con la pregunta **reformulada para caminar** y
    el "cambia el proyecto si". El campo queda `SIN RESPONDER` con su motivo y su destinatario.
-4. **"Dejalo así"** → se marca `[el revisor lo señaló, Guido lo dejó]` y **no se re-pregunta nunca más**,
+4. **"Dejalo así"** → se marca `[el revisor lo señaló, Juan lo dejó]` y **no se re-pregunta nunca más**,
    ni al retomar, ni en otra etapa, ni aunque llegue información nueva.
 
 ## Cuando el cupo se agota

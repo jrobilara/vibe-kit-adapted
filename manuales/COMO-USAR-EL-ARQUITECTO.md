@@ -1,8 +1,8 @@
 # Cómo usar el Arquitecto (y el proyecto que te deja montado)
 
-> Guía de uso completa. El instalador está en `INSTALAR.md`. Si este documento y los archivos
-> del sistema alguna vez difieren, **ganan los archivos** (`~/.claude/skills/arquitecto/`).
-> Versión 2026-07-06.
+> Guía de uso completa. El instalador está en `kit/INSTALAR.md`. Si este documento y los archivos
+> del sistema alguna vez difieren, **ganan los archivos** (`~/.gemini/config/skills/arquitecto/`).
+> Versión 2026-10-21 (adaptada a Google Antigravity).
 
 ---
 
@@ -13,7 +13,7 @@ misma conversación: **proyecto nuevo** (te entrevista, piensa lo que no ves ven
 listas configurables, multi-tenant ⚠️, i18n ⚠️ —, escribe el plano SPEC-0 y te deja el
 proyecto montado y en régimen), **feature grande sobre una app que ya anda** (explora tu
 código real y arma el spec delta con su seguro de no romper), y **consultorio** (cuando no
-sabés cómo pedirle algo a Claude). Él detecta la puerta por contexto; si duda, pregunta.
+sabés cómo pedirle algo a Antigravity). Él detecta la puerta por contexto; si duda, pregunta.
 
 **Qué NO es**: no construye la app (eso lo hace otra sesión, con contexto limpio), no es para
 features chicas ni para el trabajo del día a día.
@@ -26,10 +26,10 @@ features chicas ni para el trabajo del día a día.
 |---|---|---|
 | **Proyecto nuevo de cero** | ✅ SÍ — Modo A | `/arquitecto` en cualquier chat (caso A, abajo) |
 | **Feature grande o riesgosa en una app que ya anda** | ✅ SÍ — Modo B | `/arquitecto <la feature>` en un chat abierto EN la carpeta del proyecto (caso B, abajo) |
-| **Trabajo del día a día** (fix, ajuste, feature chica) | ❌ NO | El ciclo de siempre: `inicio` → pedís → verificás → `cierre` |
+| **Trabajo del día a día** (fix, ajuste, feature chica) | ❌ NO | El ciclo de siempre: `inicio` → pedís → verificás → `cierre` (y `/estado` cuando tengas dudas de git) |
 
 Y hay un cuarto momento que no es de construir nada: **no sabés cómo pedirle algo a
-Claude** → también es `/arquitecto` (Modo C, el consultorio — caso C, abajo).
+Antigravity** → también es `/arquitecto` (Modo C, el consultorio — caso C, abajo).
 
 Regla de bolsillo: si la feature se hace en una tarde y no toca permisos/datos/plata, **no
 hace falta spec** — pedila directo. Si "hacerla de a poquito puede salir mal", va con spec.
@@ -57,14 +57,14 @@ Ejemplo: se te ocurre *"una app para llevar los gastos de la casa"*.
    listas configurables desde panel, manejo de errores, logging, auditoría (obligatoria si
    toca plata). Vos apagás lo que no aplique. *Tu dolor #1 — "me doy cuenta tarde de lo que
    la app necesitaba" — resuelto el día cero.*
-5. **El plano y la puerta**: entra en modo solo-lectura (el sistema le IMPIDE escribir), te
+5. **El plano y la puerta**: entra en modo solo-lectura de código (freno duro hasta el OK), te
    presenta 2-3 enfoques con pros/contras y su recomendación, y arma el SPEC-0: qué entra,
    **qué NO entra**, criterios verificables, supuestos, riesgos ⚠️. Si el proyecto toca
-   plata, permisos o datos de terceros, primero lo ataca el agente **red-team** y te trae lo
+   plata, permisos o datos de terceros, primero lo ataca la skill **`redteam-spec`** (en un subagente) y te trae lo
    que sobrevivió. Aprobás como un presupuesto — tu OK es una puerta real del sistema.
 6. **Montaje** (solo con tu OK): SPEC-0 pasa a READY → scaffolding oficial del stack →
-   git init + .gitignore correcto → CLAUDE.md lleno con lo que charlaron → docs (handoff,
-   TODO con las primeras tareas, changelog) → skills `/inicio` y `/cierre` → hooks →
+   git init + .gitignore correcto → `AGENTS.md` lleno con lo que charlaron (con frenos en criollo y corrector de git) → docs (handoff,
+   TODO con las primeras tareas, changelog) → skills `/inicio`, `/cierre` y `/estado` + scripts → `.agents/rules/inicio-sesion.md` →
    primer commit. Te muestra la checklist con evidencia (✅ por ítem).
 7. **El handoff** — te da el prompt exacto, listo para copiar:
    > Abrí un chat nuevo en `<carpeta del proyecto>` y pegá:
@@ -118,15 +118,15 @@ en un spec formato SPEC-0 en `docs/`, con qué NO se toca explícito" → READY 
 
 ---
 
-## 4b. Caso C — El consultorio (cómo pedirle cosas a Claude)
+## 4b. Caso C — El consultorio (cómo pedirle cosas a Antigravity)
 
 El modo liviano: acá no hay spec ni puerta de aprobación — hay una duda de **cómo dirigir
-a Claude**, y salís con algo concreto en la mano. Cuándo va:
+a Antigravity**, y salís con algo concreto en la mano. Cuándo va:
 
 - *"No sé cómo pedirle esto"* → te devuelve **el prompt listo para pegar**, con 2 líneas
   de por qué está armado así.
-- *"¿Esto va con subagentes, en background, con spec o directo?"* → **el veredicto**, con
-  la regla que lo respalda.
+- *"¿Esto va con subagentes (`invoke_subagent`), en background (`WaitMsBeforeAsync` / `IsDaemon`), con spec o directo?"* → **el veredicto**, con
+  la regla que lo respalda (las 4 razones con nombre para delegar, handoff por referencia, `Workspace: "branch"`).
 - *"Quiero una skill para…"* → **el brief listo** para armarla con `writing-skills` en el
   proyecto (si el ritual de verdad se repitió 3+ veces; si no, te lo dice).
 
@@ -148,18 +148,17 @@ avisa *"esto ya es Modo B/A"* y cambia de puerta con lo charlado.
 
 ## 5. El proyecto que te deja montado — cómo se usa después
 
-El Arquitecto te entrega un proyecto **en régimen**: el mismo sistema que corre en Perseo y
-Hermes. Tu día a día ahí:
+El Arquitecto te entrega un proyecto **en régimen**. Tu día a día ahí:
 
-- **Abrís chat en la carpeta del proyecto** → decís `inicio` → Claude ya sabe dónde
-  están parados (el hook le inyectó el estado) → te confirma en 3 líneas → le das la misión.
-- **Trabajás.** Las reglas del CLAUDE.md operan solas: evidencia real o "NO VERIFICADO",
-  tus datos son intocables sin tabla "cambio/preservo", tareas largas en background.
+- **Abrís chat en la carpeta del proyecto** → decís `inicio` → Antigravity lee `.agents/rules/inicio-sesion.md` y los docs → te confirma en 3 líneas (con aviso proactivo si hay commits sin pushear o cambios sueltos) → le das la misión.
+- **Trabajás.** Las reglas del `AGENTS.md` operan solas: evidencia real o "NO VERIFICADO",
+  frenos antes de acciones irreversibles (con las 4 preguntas en humano: qué cambia, qué se puede perder, cómo volver atrás, si toca algo que hoy anda), corrector ante git destructivo, tareas largas en background.
+- **Consultás en un renglón** → `/estado` (o *"qué se tocó"*, *"quedó algo sin subir"*) → corre `estado-git.ps1` y te traduce en criollo en qué rama estás, qué se tocó y qué falta subir a GitHub, sin tocar nada.
 - **Terminás** → `cierre` → docs al día, commit, push, y el chat se descarta.
   **Cambió la misión → cambiá el chat.**
 - **`/smoke` y `/deploy` no existen todavía** en un proyecto recién nacido — a propósito
   (regla de 3+: una skill nace de un ritual repetido, no "por las dudas"). El día que
-  repetiste 3 veces el mismo ritual de probar o deployar, pedile a Claude que la cree — los
+  repetiste 3 veces el mismo ritual de probar o deployar, pedile a Antigravity que la cree — los
   contratos ya están esperando en los templates del Arquitecto.
 
 ---
@@ -167,13 +166,14 @@ Hermes. Tu día a día ahí:
 ## 5b. El Equipador (`/arquitecto-skills`) — la skill hermana
 
 El Arquitecto monta **proyectos**; el Equipador equipa **máquinas**. Gestiona las skills
-globales según un **menú curado** (con orígenes y razones, incluso de lo descartado):
+globales en `~/.gemini/config/skills/` según un **menú curado** (con orígenes y razones, incluso de lo descartado):
 
 - **"preparame esta máquina"** → censa qué falta del menú, te ofrece el Tier 1 con
-  multiSelect, clona fresco de los repos oficiales e instala. Los plugins que necesitan
-  comandos tuyos (`/plugin`, tokens) te los deja listos para pegar.
-- **"actualizá las skills"** → re-clona y compara; si vos editaste algo local, te muestra
+  `is_multi_select`, clona fresco de los repos oficiales e instala.
+- **"actualizate"** → actualiza el propio kit desde GitHub (`origin` / `upstream`) y sincroniza las 5 skills propias preservando tu carpeta de proyectos local.
+- **"actualizá las skills"** → re-clona y compara las externas; si vos editaste algo local, te muestra
   el diff y pregunta — nunca pisa a ciegas.
+- **"doctor" / "chequeá el kit"** → diagnóstico de solo-lectura de una pantalla (verifica las 5 skills instaladas, la carpeta de proyectos configurada y la paridad con el repo).
 - **"qué skills tengo"** → auditoría + propuesta de poda (lo que no se usa, afuera).
 - **"agregá/investigá tal skill"** → investiga (repo vivo, licencia, colisiones), y si pasa
   la curaduría entra AL MENÚ primero, con razón escrita. El menú evoluciona; nada entra
@@ -207,7 +207,7 @@ abierto que de costumbre.
   carpeta con proyecto real → huele a B) y qué pedís ("app nueva" → A; "agregale algo a
   esta app" → B; "¿cómo le pido…?" → C). Si duda, te pregunta antes de arrancar — nunca
   adivina. Y podés forzarlo directo: *"modo B: quiero agregarle tal cosa"*.
-- **"¿El Modo B monta el sistema del playbook (inicio/cierre, hooks)?"** — No: el proyecto
+- **"¿El Modo B monta el sistema del playbook (inicio/cierre, rules)?"** — No: el proyecto
   ya lo tiene. Si detecta que NO lo tiene, te ofrece montarlo primero como paso aparte,
   con su propio OK — recién después diseña la feature.
 - **"Me fui a mitad de entrevista"** — Nada se perdió: `/arquitecto` de nuevo y te ofrece
@@ -218,10 +218,9 @@ abierto que de costumbre.
   actualiza; nada está construido hasta que aprobás el plano.
 - **"¿Dónde quedó el spec?"** — Proyecto nuevo: `SPEC-0.md` en la raíz del proyecto.
   Feature: `docs/SPEC-<nombre>.md`. Implementado → `docs/archive/` (lo archiva `/cierre`).
-- **"El Arquitecto se equivocó en algo"** — Se edita como cualquier skill: chat nuevo,
-  *"con writing-skills, corregí tal cosa en ~/.claude/skills/arquitecto"*. Y al cerrar una
+- **"El Arquitecto se equivocó en algo"** — Se edita en el repo madre (`kit/skills/arquitecto/`) y se sincroniza con `.agents/scripts/kit-sync.ps1 sync`. Y al cerrar una
   mejora grande: snapshot a `legacy/snapshots/` (regla del LEEME).
-- **"¿Sirve en la otra PC?"** — Sí: `arquitecto-portable.zip` → `INSTALAR.md` → pegar el
+- **"¿Sirve en la otra PC?"** — Sí: clonás el repo → `kit/INSTALAR.md` → pegás el
   prompt. Una sola línea se adapta por máquina (la carpeta de proyectos).
 
 ---

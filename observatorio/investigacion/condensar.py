@@ -5,7 +5,7 @@ Condensa los transcripts de Claude Code de ESTA PC:
 - enmascara secretos ANTES de escribir nada a disco;
 - saca el costo real por chat, rol y modelo (campo `usage`, agrupado por message.id).
 
-Escribe SIEMPRE fuera del repo (por defecto D:\\vibe-research\\<pc>\\). No toca ~/.claude.
+Escribe SIEMPRE fuera del repo (por defecto D:\\vibe-research\\<pc>\\). No toca la carpeta de transcripts originales.
 
 Secretos reales conocidos (control positivo del criterio 2): nunca por argumento ni en el chat.
 - `--pedir-secretos`: los pide por teclado sin eco (no quedan en el historial de la consola), o

@@ -1,10 +1,12 @@
 # Método: investigar los chats para mejorar el pack
 
-> Leer el uso real (los transcripts de Claude Code) con agentes, sin quemar el contexto de nadie, y
+> Leer el uso real (los transcripts de sesiones) con agentes, sin quemar el contexto de nadie, y
 > convertirlo en un acta con propuestas (`tips/tanda-*.md`). Primo hermano del Extractor de tips:
 > el Extractor mira tips de afuera; esto mira cómo se trabajó de verdad.
 > **Nació de la misión 2** (oct 2026). Plano original: `docs/SPEC-investigacion-chats.md`; lo que se
 > apartó del plano y por qué: ADR-022. Se hizo **una vez**: es receta, no skill (regla de 3+).
+>
+> **Nota para Google Antigravity:** En Antigravity, los transcripts de conversación viven en formato JSONL en `~/.gemini/antigravity/brain/<conversation-id>/.system_generated/logs/transcript.jsonl` (compacto) y `transcript_full.jsonl` (completo), donde cada línea tiene `step_index`, `source`, `type` (`USER_INPUT`, `PLANNER_RESPONSE`), `content`, `thinking` y `tool_calls`. Los scripts `repos.py`, `flota.py` y `huella.py` ya soportan proyectos tanto de Antigravity (`AGENTS.md`, `.agents/skills/`) como de Claude Code.
 
 ## Cuándo se corre
 

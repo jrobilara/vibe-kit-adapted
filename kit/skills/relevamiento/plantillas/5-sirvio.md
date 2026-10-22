@@ -1,7 +1,7 @@
 # ¿Sirvió? — {{titulo}}
 
 <!-- EL FLUJO (se corre con "relevamiento sirvió", o cuando la guardia de entrada ve un
-     `chequeo:` vencido y Guido dice que sí):
+     `chequeo:` vencido y Juan dice que sí):
      1. Leé 3-necesidad.md y sacá la línea base (03:15) y el criterio (03:21) TAL CUAL se
         escribieron. No los re-redactes: el texto es el que se chequea.
      2. Volvé a correr LA MISMA consulta escrita en "se mide así". Si no se puede, decilo.

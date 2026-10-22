@@ -17,6 +17,7 @@ Qué hay en esta carpeta, qué es cada cosa y cuándo leerla. El repo en general
 | Archivo | Qué es | Cuándo leerlo |
 |---|---|---|
 | [`MISION-Y-VISION.md`](MISION-Y-VISION.md) | Para qué existe el repo, para quién, qué NO hace | La primera vez, o si se duda del rumbo |
+| [`PORTABILIDAD-ANTIGRAVITY.md`](PORTABILIDAD-ANTIGRAVITY.md) | Equivalencias y decisiones de la adaptación de `vibe-kit` a Google Antigravity / Gemini | Antes de tocar rutas, herramientas o skills del kit |
 
 ## Los planos (SPEC)
 
@@ -25,11 +26,11 @@ siguen consultando (ADR-020). El Arquitecto busca borradores en `docs/SPEC-*.md`
 
 | Archivo | De qué |
 |---|---|
-| [`SPEC-docs-fyd.md`](SPEC-docs-fyd.md) · [`SPEC-docs-fyd-v2.md`](SPEC-docs-fyd-v2.md) | El motor `/docs-fyd` y su v2 (dudas por opciones) |
+| [`SPEC-docs-personales.md`](SPEC-docs-personales.md) · [`SPEC-docs-personales-v2.md`](SPEC-docs-personales-v2.md) | El motor `/docs-personales` y su v2 (dudas por opciones) |
 | [`SPEC-relevamiento.md`](SPEC-relevamiento.md) | `/relevamiento` — incluye los 21 criterios del estreno y la Fase 2 |
 | [`SPEC-investigacion-chats.md`](SPEC-investigacion-chats.md) | La investigación de los chats (misión 2) y la hoja de ruta |
 | [`SPEC-profesionalizar-repo.md`](SPEC-profesionalizar-repo.md) | El orden de este repo (misión 3) |
-| [`SPEC-adaptacion-antigravity.md`](SPEC-adaptacion-antigravity.md) | Refactor y adaptación v2 del repo y del kit a Antigravity / Gemini (`READY`) |
+| [`SPEC-adaptacion-antigravity.md`](SPEC-adaptacion-antigravity.md) | Refactor y adaptación v2 del repo y del kit a Antigravity / Gemini |
 
 ## La misión en curso — [`mision-4/`](mision-4/)
 
@@ -41,7 +42,7 @@ siguen consultando (ADR-020). El Arquitecto busca borradores en `docs/SPEC-*.md`
 | [`mision-4/REPOS.md`](mision-4/REPOS.md) | Tramo 2 (b): lo que cuenta el historial de git — arreglo del arreglo, arreglos con prueba, solo documentos; líneas base |
 | [`mision-4/PLATAFORMA.md`](mision-4/PLATAFORMA.md) | Tramo 2 (a): qué de lo armado a mano ya es nativo de Claude Code (abrir sesiones, avisos, estado, entre PCs) |
 | [`mision-4/TABLERO.md`](mision-4/TABLERO.md) | Tramo 3: el mapa por objetivos — todo lo investigado repartido por los 7 objetivos con su línea base, las 10 mejoras como construir o adoptar y 8 racimos para el diseño |
-| [`mision-4/DISENO-A-frenos.md`](mision-4/DISENO-A-frenos.md) | Tramo 4, racimo A: las 4 cosas que se le preguntan a Guido, correctores contra preguntas, la receta de un freno, qué trae el molde y cómo se mide |
+| [`mision-4/DISENO-A-frenos.md`](mision-4/DISENO-A-frenos.md) | Tramo 4, racimo A: las 4 cosas que se le preguntan al usuario, correctores contra preguntas, la receta de un freno, qué trae el molde y cómo se mide |
 | [`mision-4/DISENO-C-salida-hacia-Guido.md`](mision-4/DISENO-C-salida-hacia-Guido.md) | Tramo 4, racimo C: silencio por defecto, `/estado` por proyecto y por subproyecto, la tabla de tiempos y quién estima |
 | [`mision-4/REFERENCIAS-EXTERNAS.md`](mision-4/REFERENCIAS-EXTERNAS.md) | Tramo 4: qué hacen otros métodos agénticos (gentle-ai, agency-agents, MetaGPT), qué idea sirve a qué racimo y qué se descarta con su razón |
 
@@ -51,8 +52,8 @@ Material de referencia que no cambia con el trabajo diario.
 
 | Archivo | Qué es |
 |---|---|
-| [`consulta/referencia-prompts-fyd.md`](consulta/referencia-prompts-fyd.md) | Los prompts originales de FyD Sistemas, textuales. **No está bajo la licencia MIT** (ver `NOTICE`) |
-| [`consulta/EVALUACION-docs-fyd-v2.md`](consulta/EVALUACION-docs-fyd-v2.md) | El protocolo para evaluar `docs-fyd` (corrido 2026-07-24: PASS); sirve para la próxima evaluación |
+| [`consulta/referencia-prompts-personales.md`](consulta/referencia-prompts-personales.md) | Los prompts de referencia de los 10 documentos técnicos de `docs-personales` (100% MIT) |
+| [`consulta/EVALUACION-docs-personales-v2.md`](consulta/EVALUACION-docs-personales-v2.md) | El protocolo para evaluar `docs-personales` (corrido 2026-07-24: PASS); sirve para la próxima evaluación |
 
 Lo ya consumido (prompts de arranque, presupuestos, relatos de uso) no vive acá: está en
 [`../legacy/`](../legacy/) con su lápida.

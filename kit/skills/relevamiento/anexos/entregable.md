@@ -58,7 +58,7 @@ PDF se rehacen de un `.md` que sí está versionado — REJ-010.)*
    `%LOCALAPPDATA%/Google/Chrome/Application/chrome.exe`
 3. Si no aparece en ninguna, o si el poll de 45 s vence: **plan B**.
 
-**Plan B — y la etapa CIERRA IGUAL.** No frenar es la regla (precedente: `docs-fyd/SKILL.md:62-64`).
+**Plan B — y la etapa CIERRA IGUAL.** No frenar es la regla (precedente: `docs-personales/SKILL.md:62-64`).
 Se copia el `.html` a `pdf/`, **no se borra**, el TABLERO anota `PDF pendiente`, y se dice **esto**:
 
 > *"El PDF no salió. Te dejé el documento en `pdf/1-problema.html`: abrilo con doble clic y

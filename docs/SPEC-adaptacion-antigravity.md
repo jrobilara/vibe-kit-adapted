@@ -1,6 +1,6 @@
 # SPEC: Adaptación y Refactor v2 para Antigravity (Gemini) — vibe-kit
 Adaptar la versión evolucionada de `vibe-kit` (Misiones 3 y 4 de Guido) al ecosistema Antigravity / Gemini (`AGENTS.md`, `.agents/`, `~/.gemini/config/`), conservando la atribución a Guido y sumando soporte propio de instalación, sincronización y auto-actualización desde el repo de Juan.
-- Estado: READY
+- Estado: ✅ IMPLEMENTADO 2026-10-21
 - Fecha: 2026-10-21
 
 ## Por qué (el dolor)

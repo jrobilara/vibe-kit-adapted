@@ -57,19 +57,20 @@ def scan(x):
     paths = {e["path"]: e.get("size", 0) for e in (t or {}).get("tree", []) if e["type"] == "blob"}
     res = {"repo": full, "privado": x["isPrivate"], "rama": ref, "creado": x["createdAt"][:10],
            "ultimo_push": x["pushedAt"][:10], "kb_repo": x["diskUsage"], "arbol_truncado": (t or {}).get("truncated")}
-    res["skills"] = sorted({p.split("/")[2] for p in paths if re.match(r"\.claude/skills/[^/]+/SKILL\.md$", p)})
-    res["agentes"] = sorted(p.split("/")[-1][:-3] for p in paths if re.match(r"\.claude/agents/[^/]+\.md$", p))
-    res["comandos"] = sorted(p.split("/")[-1][:-3] for p in paths if re.match(r"\.claude/commands/[^/]+\.md$", p))
+    res["skills"] = sorted({p.split("/")[2] for p in paths if re.match(r"\.(claude|agents)/skills/[^/]+/SKILL\.md$", p)})
+    res["agentes"] = sorted(p.split("/")[-1][:-3] for p in paths if re.match(r"\.(claude|agents)/agents/[^/]+\.md$", p))
+    res["comandos"] = sorted(p.split("/")[-1][:-3] for p in paths if re.match(r"\.(claude|agents)/commands/[^/]+\.md$", p))
     res["claude_md_kb"] = round(paths["CLAUDE.md"] / 1024, 1) if "CLAUDE.md" in paths else None
     res["agents_md"] = "AGENTS.md" in paths
+    res["agents_md_kb"] = round(paths["AGENTS.md"] / 1024, 1) if "AGENTS.md" in paths else None
     docs = ["SESSION_HANDOFF.md", "TODO.md", "CHANGELOG.md", "DECISIONS.md", "REJECTED.md", "README.md"]
     res["docs"] = [d for d in docs if f"docs/{d}" in paths]
     res["specs_docs"] = len([p for p in paths if re.match(r"docs/SPEC-[^/]+\.md$", p)])
     res["spec0_raiz"] = "SPEC-0.md" in paths
-    res["docs_fyd"] = any(p.startswith("docs-fyd/") for p in paths)
+    res["docs_personales"] = any(p.startswith("docs-personales/") for p in paths)
     res["legacy"] = any(p.startswith("legacy/") for p in paths)
     tests = [p for p in paths if re.search(r"(^|/)(tests?|__tests__|spec)/|\.test\.|\.spec\.|(^|/)test_[^/]+\.py$|_test\.(py|go)$", p)
-             and not p.startswith(("node_modules/", ".claude/", "docs/"))]
+             and not p.startswith(("node_modules/", ".claude/", ".agents/", "docs/"))]
     res["archivos_de_prueba"] = len(tests)
     res["ci"] = sorted(p.split("/")[-1] for p in paths if p.startswith(".github/workflows/"))
     big = sorted(((s, p) for p, s in paths.items() if p.endswith(".md") and s > 100_000), reverse=True)[:4]
@@ -85,10 +86,11 @@ def scan(x):
             res["modo_default"] = perm.get("defaultMode")
         except Exception as e:
             res["hooks"] = f"settings ilegible: {e}"
-    # marcas de versión del método en CLAUDE.md
-    if res["claude_md_kb"]:
-        c = file_text(full, "CLAUDE.md", ref) or ""
-        res["menciona"] = [w for w in ("vibe-kit", "Arquitecto", "SPEC-0", "/inicio", "/cierre", "handoff",
+    # marcas de versión del método en AGENTS.md o CLAUDE.md
+    if res["agents_md_kb"] or res["claude_md_kb"]:
+        doc_raiz = "AGENTS.md" if res["agents_md_kb"] else "CLAUDE.md"
+        c = file_text(full, doc_raiz, ref) or ""
+        res["menciona"] = [w for w in ("vibe-kit", "Arquitecto", "SPEC-0", "/inicio", "/cierre", "/estado", "handoff",
                                        "director", "obrero", "tramo") if w.lower() in c.lower()]
         v = re.findall(r"\bv\d+\.\d+(?:\.\d+)?\b", c)
         res["versiones_citadas"] = sorted(set(v))[:5]

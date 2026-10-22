@@ -30,7 +30,7 @@ libre, se ofrece con opciones construidas **del disco**:
 
 - `Glob` de `<carpeta de proyectos>/*/.git` → **las 3 apps tocadas más recientemente + "Otra cosa"**.
 - **Si no hay repos, la lista queda vacía y vuelve a ser texto libre.** No se inventa una opción.
-- Esto es una comodidad, no un gate: lo que Guido escriba a mano vale igual.
+- Esto es una comodidad, no un gate: lo que Juan escriba a mano vale igual.
 
 ## La E2 en brownfield
 
@@ -46,25 +46,25 @@ El Excel paralelo, el grupo de WhatsApp, la libreta, el mail que alguien se mand
 lo que el código no puede contar y es donde vive el problema real. Va como campo normal en `02:18`
 y `02:21`, con su sello.
 
-## El atajo `docs-fyd/`
+## El atajo `docs-personales/`
 
-Si la app tiene `docs-fyd/` y su `ESTADO.md` **no** está `PENDIENTE REGENERAR` ni vencido, se lee y
-se cita. Respetando **su** jerarquía de evidencia (`docs-fyd/deteccion.md:39-47`):
+Si la app tiene `docs-personales/` y su `ESTADO.md` **no** está `PENDIENTE REGENERAR` ni vencido, se lee y
+se cita. Respetando **su** jerarquía de evidencia (`docs-personales/deteccion.md:39-47`):
 
 > **sistema vivo (testimonio humano datado) > código > scripts del repo > `docs/`**
 
 - Lo que salga de ahí lleva balde **`DEL CÓDIGO` con la fecha del artefacto**, nunca `RELEVADA`.
 - **`docs/` no es fuente de verdad**, y un dato del código puede estar viejo respecto de la base viva:
   si es de seguridad o continuidad, **se pregunta, no se afirma**.
-- Si `ESTADO.md` dice `PENDIENTE REGENERAR`: **no se lee**. Se anota *"hay docs-fyd pero está marcada
-  vieja"* y se sigue con lo que dicte Guido.
+- Si `ESTADO.md` dice `PENDIENTE REGENERAR`: **no se lee**. Se anota *"hay docs-personales pero está marcada
+  vieja"* y se sigue con lo que dicte Juan.
 
 ## Lo que la v1 NO hace — y no es un olvido
 
 **No hay censo automático del código.** Ningún agente lee el repo para pre-llenar la E2. Las preguntas
-técnicas las contesta Guido, como en greenfield. Está **diferido a propósito** (Fase 2 del SPEC): es la
+técnicas las contesta Juan, como en greenfield. Está **diferido a propósito** (Fase 2 del SPEC): es la
 pieza más cara y su consumidor —el Modo B del Arquitecto— nunca se estrenó (ADR-012).
-**Se reabre si:** el Modo B tuvo su primera misión real **y** Guido contestó a mano esas preguntas en
+**Se reabre si:** el Modo B tuvo su primera misión real **y** Juan contestó a mano esas preguntas en
 2 relevamientos. Si estás por "completarlo" porque parece que falta: no falta.
 
 ## La mudanza en brownfield
@@ -77,5 +77,5 @@ Qué se muda y qué no, igual que siempre — está en el motor, sección "La mu
 tienen una copia instanciada y no lo reciben nunca), avisar una vez y **dar la línea para pegar**:
 
 > *"Este proyecto no tiene el aviso del tramo 5 en su `/cierre`. Si querés que te avise solo a las 6
-> semanas, pegá este paso en `.claude/skills/cierre/SKILL.md` — o dejalo así: `/relevamiento` te
+> semanas, pegá este paso en `.agents/skills/cierre/SKILL.md` — o dejalo así: `/relevamiento` te
 > avisa igual la próxima vez que lo abras."*

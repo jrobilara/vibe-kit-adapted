@@ -40,13 +40,13 @@ Efectos colaterales en el código real · ¿toca datos que ya creó el usuario? 
 ¿hay migración? · ¿puede romper algo que hoy funciona?
 Casillas tildadas PARA ESTE PEDIDO: {{lista}}
 
-## 6. [SOLO BROWNFIELD] Lo que Guido contó del sistema actual
-Fuente: lo que dictó Guido / docs-fyd del {{fecha}} si existe.
+## 6. [SOLO BROWNFIELD] Lo que Juan contó del sistema actual
+Fuente: lo que dictó Juan / docs-personales del {{fecha}} si existe.
 NO es un censo del código: verificalo vos.
 
 ---
 **Cómo leer los sellos:** lo marcado `SUPUESTO` no lo dijo nadie — es una hipótesis sin verificar,
-no la trates como hecho. `DE MEMORIA` es Guido acordándose, aunque diga "me lo dijo X".
+no la trates como hecho. `DE MEMORIA` es Juan acordándose, aunque diga "me lo dijo X".
 Sólo `RELEVADA` tiene una persona atrás, con su `notas/<persona>.md`.
 
 **Cuando termines de diseñar: NO montes.** Devolvé el plano acá y devolvé el control a

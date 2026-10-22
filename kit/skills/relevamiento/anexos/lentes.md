@@ -80,7 +80,7 @@ No improvises el texto: **la pregunta improvisada trae el sesgo puesto.** Adapt�
 
 ## El mensaje de encuadre — uno por cierre de etapa
 
-Va en ASCII, y su trabajo es que Guido sepa que **esto no es la planilla aprobada**:
+Va en ASCII, y su trabajo es que Juan sepa que **esto no es la planilla aprobada**:
 
 ```
 Etapa 2 cerrada — la planilla está completa.

@@ -2,6 +2,28 @@
 
 > Historia permanente. `/cierre` agrega una entrada AL TOPE en cada sesión; si hubo tag de versión, el título lo dice (` · vX.Y`). Orden descendente estricto. Nada de versiones duplicadas en otros docs. El porqué de cada cosa está en los ADR citados.
 
+## 2026-10-21 — Implementación de la adaptación v2 a Google Antigravity (`SPEC-adaptacion-antigravity.md`)
+
+### Added
+- `.agents/` y `AGENTS.md` en la raíz del repo y en `observatorio/extractor/AGENTS.md`:
+  - `.agents/rules/inicio-sesion.md` (`trigger: always_on`).
+  - `.agents/skills/{inicio,cierre,estado}/SKILL.md`.
+  - `.agents/scripts/kit-sync.ps1` y `.sh`: compara y sincroniza las 5 skills propias (`arquitecto`, `arquitecto-skills`, `docs-personales`, `redteam-spec`, `relevamiento`) con `~/.gemini/config/skills/` preservando la línea `**Carpeta de proyectos de esta máquina**`.
+  - `.agents/scripts/estado-git.ps1` y `.sh` (y copias en `kit/skills/arquitecto/templates/universales/scripts/`): recolector determinístico de git en JSON para `/estado` e `/inicio` (Misión 4, Diseño C).
+- `kit/skills/docs-personales/`, `docs/SPEC-docs-personales.md`, `docs/SPEC-docs-personales-v2.md`, `docs/consulta/referencia-prompts-personales.md` y `docs/consulta/EVALUACION-docs-personales-v2.md` (100% MIT).
+- `kit/skills/redteam-spec/SKILL.md`: convertido de agente a skill invocable con `invoke_subagent`.
+- `docs/PORTABILIDAD-ANTIGRAVITY.md` (v2) y `ADR-024` en `docs/DECISIONS.md`.
+
+### Changed
+- `kit/skills/arquitecto/`: adaptado a Antigravity (`AGENTS.template.md` con las 4 preguntas en humano y el corrector de git destructivo de Diseño A; `consultorio.md` con las 4 razones con nombre para delegar, handoff por referencia, `Workspace: "branch"` y Reactive Wakeup; `SKILL.md` con placeholder `{{CARPETA_DE_PROYECTOS}}`).
+- `kit/skills/arquitecto-skills/`: nuevo `Modo DOCTOR` de solo-lectura, soporte `origin`/`upstream` en `actualizate`, y `android-cli` + `docs-personales` en `menu-skills.md`.
+- `kit/skills/relevamiento/`: adaptado a Antigravity manteniendo la autoría de Guido y aprobación de su jefe sobre el método y las plantillas (`_fuente/` 100% intacto).
+- `observatorio/investigacion/{repos.py,flota.py,huella.py,METODO.md,LECTOR.md,condensar.py}`: soporte dual para repos Antigravity (`AGENTS.md`, `.agents/`) y Claude Code.
+- `README.md`, `LICENSE`, `NOTICE`, `GUIA-DE-USO.md`, `PLAYBOOK-MAESTRO.md`, `manuales/COMO-USAR-EL-ARQUITECTO.md`, `docs/MISION-Y-VISION.md`, `docs/README.md`: adaptados a Antigravity con atribución destacada a Guido (`guidocameraeq/vibe-kit`) y licencia 100% MIT.
+
+### Removed
+- `.claude/`, `CLAUDE.md`, `observatorio/extractor/CLAUDE.md`, `kit/agents/`, `kit/skills/docs-fyd/`, `docs/SPEC-docs-fyd*.md`, `docs/consulta/*-fyd*.md`, `kit/skills/arquitecto/templates/universales/CLAUDE.template.md`, `settings.template.json` y `hooks/`.
+
 ## 2026-10-21 — Diseño y Red-Team de la adaptación v2 para Antigravity (Gemini)
 
 ### Added

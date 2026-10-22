@@ -20,7 +20,7 @@ trabaja**, no qué se trabajó.
 | Q1 | ¿Cuánto cuesta? Trabajo de Opus que un modelo chico podría haber hecho; casos donde Sonnet/Haiku ya lo hicieron bien o mal. (Los números los saca un script; vos aportás los CASOS.) |
 | Q2 | ¿Qué falla de **Claude** se repite? (no bugs de la app) |
 | Q3 | ¿Qué hace Guido a mano una y otra vez? Lo que pega, repite, corrige; cuándo se frustra. |
-| Q4 | ¿Cómo se usó el kit? Invocaciones de `/arquitecto`, `/relevamiento`, `/docs-fyd`, el Equipador (`arquitecto-skills`), `/inicio`, `/cierre`: qué preguntas sobraron, qué se saltó, qué improvisó Claude. **Especial atención a `/relevamiento`: es su primer uso real.** |
+| Q4 | ¿Cómo se usó el kit? Invocaciones de `/arquitecto`, `/relevamiento`, `/docs-personales`, el Equipador (`arquitecto-skills`), `/inicio`, `/cierre`, `/estado`: qué preguntas sobraron, qué se saltó, qué improvisó el agente. **Especial atención a `/relevamiento`: es su primer uso real.** |
 | Q5 | ¿Qué le faltó saber a Claude del proyecto? Momentos en que preguntó o decidió mal por no conocer el para-qué, los módulos o la infraestructura. |
 | Q6 | ¿Qué del método director/obrero/Mesa pasa en los chats y no está en "ya sabido"? Lo que se contagiaron Desktop↔Mobile↔otros. |
 | Q7 | ¿Qué es el "capataz" y en qué estado quedó? (solo si tu lote lo toca) |

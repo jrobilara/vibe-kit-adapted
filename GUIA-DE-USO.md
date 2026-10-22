@@ -2,7 +2,7 @@
 
 > La guía práctica del sistema completo, organizada por situación: **"quiero X → hacé Y"**.
 > No repite procedimientos (viven en el kit y las skills — si algo difiere, ganan ellos);
-> te dice qué decir, dónde, y qué esperar. Actualizada 2026-10-13 (el repo se reordenó: el Extractor y la investigación viven en `observatorio/`).
+> te dice qué decir, dónde, y qué esperar. Actualizada 2026-10-21 (adaptada a Google Antigravity, con `/estado`, `docs-personales` y `doctor`).
 
 ## El mapa mental en 30 segundos
 
@@ -10,8 +10,8 @@ Tu sistema tiene **3 niveles**, cada uno con su herramienta:
 
 | Nivel | Herramienta | Se usa… |
 |---|---|---|
-| **La máquina** (esta PC, la del SAAS, cualquiera) | El Equipador (`/arquitecto-skills`) | Al estrenar una PC, actualizar skills, o traer lo último (*"actualizate"*) |
-| **Cada proyecto** (Perseo, el ERP, apps nuevas) | `inicio` / `cierre` + su CLAUDE.md | Todos los días |
+| **La máquina** (esta PC, cualquiera) | El Equipador (`/arquitecto-skills`) | Al estrenar una PC, diagnosticar (`doctor`), actualizar skills, o traer lo último (*"actualizate"*) |
+| **Cada proyecto** (apps existentes o nuevas) | `inicio` / `cierre` / `/estado` + su `AGENTS.md` | Todos los días |
 | **Este repo** (el método mismo) | El Arquitecto, el Extractor, el playbook | Al arrancar proyectos, procesar tips, o mejorar el método |
 
 Y hay un **paso previo**, que sólo aparece cuando el pedido **vino de otra persona**: `/relevamiento`
@@ -68,8 +68,9 @@ no un fracaso.
 
 ### 🔨 "Quiero trabajar en un proyecto que ya anda"
 Chat nuevo **en la carpeta del proyecto** → decís **`inicio`** → te confirma dónde están en
-3 líneas → le das la misión → trabajás → **`cierre`** → chat a la basura.
-Cambió la misión → cambiá el chat. Compactar es emergencia (*"cierre parcial"*), no rutina.
+3 líneas (y te avisa si quedó algo sin subir a GitHub o tocado) → le das la misión → trabajás → **`cierre`** → chat a la basura.
+Si a mitad de camino querés saber en qué rama estás, qué se tocó o si falta subir algo sin tocar nada, decí **`/estado`** (o *"qué se tocó"*).
+Cambió la misión → cambiá el chat. Si el contexto se llena, hacé **"cierre parcial"** y abrí un chat nuevo (o usá `/compact` solo como emergencia).
 
 ### 🏗️ "Quiero una feature grande o riesgosa en una app existente"
 Chat nuevo **en la carpeta de esa app** → **`/arquitecto`** → detecta que hay código (Modo B),
@@ -78,55 +79,54 @@ toca") listo para que una sesión fresca lo construya.
 Para features chicas: ni Arquitecto ni spec — pedila directo en el chat del proyecto.
 Regla de bolsillo: si sale en una tarde y no toca permisos/datos/plata → directo; si no → spec.
 
-### 📋 "Necesito documentar un repo para la auditoría FyD"
-Chat nuevo **en la carpeta de esa app** → **`/docs-fyd`**. Deriva del código los 10 documentos que
-pide FyD (en `docs-fyd/`, aislado), y **cuando duda te pregunta por opciones** (backups, RLS, base
+### 📋 "Necesito documentar la arquitectura y operación de un repo"
+Chat nuevo **en la carpeta de esa app** → **`/docs-personales`**. Deriva del código los 10 documentos técnicos
+(en `docs-personales/`, aislado), y **cuando duda te pregunta por opciones** (backups, RLS, base
 compartida, tokens — según lo que el repo tenga) — vos elegís, no escribís. Completás lo que falte en `_CAMPOS-NEGOCIO.md` /
-`_ACLARACIONES.md`, y antes de entregar corrés **`docs-fyd auditar`** (te dice qué quedó viejo, qué
+`_ACLARACIONES.md`, y antes de cerrar corrés **`docs-personales auditar`** (te dice qué quedó viejo, qué
 dudas faltan, y si hay secretos). Un repo por vez.
-→ Detalle: `kit/skills/docs-fyd/SKILL.md` · el inventario central (Excel) es Fase 2 (a mano desde tu Kanban).
+→ Detalle: `kit/skills/docs-personales/SKILL.md`.
 
 ### 🗣️ "Vengo charlando algo en un chat y tomó forma de feature"
 Quedate en ese chat: **"cristalizá todo esto en un spec"** → lo revisás → chat nuevo:
-`inicio — ejecutá el spec docs/SPEC-X.md`. (Y si te olvidás de pedirlo, Claude te lo va a
-ofrecer solo — es regla de tus CLAUDE.md.)
+`inicio — ejecutá el spec docs/SPEC-X.md`. (Y si te olvidás de pedirlo, Antigravity te lo va a
+ofrecer solo — es regla de tus `AGENTS.md`.)
 
-### 🤔 "No sé cómo pedirle esto a Claude / quiero armar un prompt o una skill"
+### 🤔 "No sé cómo pedirle esto a Antigravity / quiero armar un prompt o una skill"
 **`/arquitecto`** y contale — el Modo C (consultorio) te entrevista sobre la traba y te
-entrega el prompt listo para pegar, o la skill armada.
+entrega el prompt listo para pegar, el veredicto de orquestación (subagentes, ramas, background) o el brief de la skill.
 
 ### 📱 "Guardé TikToks con tips de vibe coding"
-Abrí Claude Code en **`observatorio/extractor/`** (VSCode → Abrir carpeta) → **pegá los links** — nada más.
+Abrí Antigravity en **`observatorio/extractor/`** (Archivo → Abrir carpeta) → **pegá los links** — nada más.
 El agente extrae, verifica y deja el informe en `tips/`. Después, chat en la raíz de este
 repo: *"leé tips/tanda-<fecha> y procesemos las conclusiones"* — ahí decidís qué entra.
 → Detalle completo: `observatorio/extractor/COMO-USAR-EL-EXTRACTOR.md`
 
-### 💻 "Estoy en una PC nueva (o quiero actualizar la del SAAS)"
-**PC nueva:** `git clone` del repo → abrir Claude Code en `kit/` → pegar el prompt de
+### 💻 "Estoy en una PC nueva (o quiero actualizar otra PC)"
+**PC nueva:** `git clone` del repo → abrir Antigravity en `kit/` → pegar el prompt de
 `kit/INSTALAR.md`. Se instala solo y al final te ofrece equipar la máquina con el menú curado.
 *(Hace falta git. Si alguna vez hay una PC sin git, ver REJ-015.)*
 **Actualizar una PC que ya lo tiene:** decile al Equipador **`actualizate`** (o *"actualizá el
-kit"*) — baja lo último del repo canónico y se actualiza a sí mismo (con diff antes de pisar).
-Reiniciás Claude Code y listo. *(La 1ra vez en una PC con el Equipador viejo va con el prompt
-manual de actualización; de ahí en más, "actualizate".)*
+kit"*) — baja lo último del repo (`origin` o `upstream`) y sincroniza las 5 skills preservando tu carpeta de proyectos local.
 
-### 🧰 "Quiero instalar una skill nueva / ver qué skills tengo"
+### 🧰 "Quiero instalar una skill nueva / ver qué skills tengo / chequear el kit"
 **`/arquitecto-skills`**: *"preparame esta máquina"* (instala lo que falte del menú),
+*"doctor"* / *"chequeá el kit"* (diagnóstico rápido de solo-lectura de las 5 skills y tu carpeta de proyectos),
 *"qué skills tengo"* (censo), *"actualizá las skills"* (update del menú con diff),
 **`actualizate`** (el propio kit se baja lo último del repo y se auto-actualiza), *"agregá tal
 skill al menú"* (la investiga primero — nada entra sin curaduría).
 
 ### 🔧 "Quiero cambiar algo del método / del Arquitecto / del menú"
-Chat nuevo **en la raíz de este repo** → pedilo. La regla la sabe Claude: se edita en `kit/`,
-se sincroniza a `~/.claude/`, y `cierre` deja todo commiteado y pusheado.
-NUNCA editar `~/.claude/` directo.
+Chat nuevo **en la raíz de este repo** → pedilo. La regla la sabe Antigravity: se edita en `kit/`,
+se sincroniza a `~/.gemini/config/skills/` con `.agents/scripts/kit-sync.ps1 sync`, y `cierre` deja todo commiteado y pusheado.
+NUNCA editar `~/.gemini/config/skills/` directo.
 
-### 😤 "Claude repitió un error / le expliqué lo mismo 3 veces"
-Es LA señal del sistema: *"esto va al CLAUDE.md"* (del proyecto donde pasó) o *"esto merece
+### 😤 "El agente repitió un error / le expliqué lo mismo 3 veces"
+Es LA señal del sistema: *"esto va al `AGENTS.md`"* (del proyecto donde pasó) o *"esto merece
 una skill"*. Cada corrección repetida que no se escribe es una que vas a repetir.
 
-### 🕰️ "Vuelvo a este repo después de semanas (o sin Fable)"
-Abrí un chat acá y listo: el hook te inyecta el handoff, los pendientes y los últimos
+### 🕰️ "Vuelvo a este repo después de semanas"
+Abrí un chat acá y decí `inicio`: la regla `.agents/rules/inicio-sesion.md` y la skill `/inicio` leen el handoff, los pendientes y los últimos
 commits. Para el "por qué" de cualquier cosa: `docs/DECISIONS.md` (los ADRs) y
 `docs/REJECTED.md`; el mapa de `docs/` está en `docs/README.md`. Ningún chat viejo hace falta.
 
@@ -149,14 +149,16 @@ de la anterior en `tips/tanda-2026-10-chats.md` §0; lo ya hallado en `D:\vibe-h
 | `te paso lo que ya tenemos` | Arranca desde una planilla ya llena, un Word o unos mails, en vez de cero |
 | `basta de preguntas de más` | Las lentes siguen anotando pero dejan de preguntar (`prendé las lentes` revierte) |
 | `relevamiento sirvió` | A las 6 semanas: ¿se cumplió el criterio que escribiste? Con el número, no con la sensación |
-| `inicio` | El chat del proyecto arranca sabiendo dónde están |
+| `inicio` | El chat del proyecto arranca sabiendo dónde están (y avisa si hay commits sin subir o cambios sueltos) |
+| `/estado` (o `qué se tocó`) | Te dice en criollo en qué rama estás, qué se tocó y qué falta subir a GitHub (solo-lectura) |
 | `cierre` | Docs al día, commit, push — chat descartable |
-| `cierre parcial` | Emergencia pre-compactación: guarda el estado y seguís |
+| `cierre parcial` | Emergencia cuando el contexto se llena: guarda el estado en el handoff para abrir un chat limpio |
 | `dale con los defaults` | El Arquitecto salta a confirmar solo las 2 decisiones irreversibles |
 | `cristalizá esto en un spec` | La charla se vuelve un plano ejecutable por otra sesión |
 | `preparame esta máquina` | El Equipador instala el menú curado |
-| `/docs-fyd` | Documenta el repo para la auditoría FyD (te pregunta por opciones lo que el código no sabe) |
-| `docs-fyd auditar` | Chequeo antes de entregar a FyD: qué quedó viejo, dudas abiertas, secretos — no escribe |
+| `doctor` / `chequeá el kit` | El Equipador verifica en solo-lectura las 5 skills instaladas, tu carpeta de proyectos y la paridad |
+| `/docs-personales` | Documenta el repo en `docs-personales/` (te pregunta por opciones lo que el código no sabe) |
+| `docs-personales auditar` | Chequeo de `docs-personales/`: qué quedó viejo, dudas abiertas, secretos — no escribe |
 | `actualizate` | El Equipador baja lo último del repo y se actualiza a sí mismo |
 | *(pegar links en `observatorio/extractor/`)* | Informe de tips con veredictos, listo para procesar |
 
